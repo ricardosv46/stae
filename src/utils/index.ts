@@ -1,0 +1,1 @@
+export { numberToOrdinalAbbreviation } from './numberToOrdinalAbbreviation'

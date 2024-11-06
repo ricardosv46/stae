@@ -1,0 +1,139 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+}
+
+.bg-banner-1 {
+    background-image: url('/assets/images/banner.png');
+    background-repeat: no-repeat;
+    width: 1000px;
+    height: 280px;
+}
+.divider {
+    padding: 0 7px;
+}
+
+@media (max-width: 768px) {
+    .bg-banner-1 {
+        width: auto;
+        height: auto;
+        background-image: none;
+    }
+}
+
+@media (min-width: 768px) {
+    .min-height {
+        min-height: calc(100vh - 300px);
+    }
+}
+
+@media (min-width: 768px) {
+    .min-height-home {
+        min-height: calc(100vh - 258px);
+    }
+}
+
+.select-lib {
+    padding: 0px;
+}
+
+.triangle {
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 16px solid #e3002b;
+}
+.font-montserrat {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 600;
+}
+.css-1jqq78o-placeholder {
+    color: #a1a1aa !important;
+    opacity: 1 !important;
+}
+
+.overflow-visible-t {
+    overflow-wrap: break-word;
+}
+
+.react-tabs {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.react-tabs__tab-list {
+    border-bottom: 1px solid #aaa;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.react-tabs__tab {
+    display: inline-block;
+    border: 1px solid transparent;
+    bottom: -1px;
+    position: relative;
+    background-color: #fff;
+    color: #003770;
+    font-weight: bold;
+    list-style: none;
+    min-width: 250px;
+    text-align: center;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 1.2em;
+    padding: 15px;
+    border-bottom-color: #003770;
+}
+
+.react-tabs__tab--selected {
+    background: #003770;
+    border-color: #aaa;
+    color: white;
+    cursor: default;
+    margin: 0;
+    padding: 15px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.react-tabs__tab--disabled {
+    color: GrayText;
+    cursor: default;
+}
+
+.react-tabs__tab:focus {
+    outline: none;
+}
+
+.react-tabs__tab:focus:after {
+    content: '';
+    position: absolute;
+    height: 5px;
+    left: -1px;
+    right: -1px;
+    bottom: 0px;
+    background: #3d7bbe;
+}
+
+.react-tabs__tab-panel {
+    display: none;
+}
+
+.react-tabs__tab-panel--selected {
+    display: block;
+}
+.nextui-c-cAbbLF {
+    background-color: #003770 !important;
+}
+.react-datepicker__calendar-icon {
+    right: -0px;
+    top: 5px;
+    margin-right: 10px;
+}
+.react-time-picker__wrapper {
+    border: none !important;
+}
