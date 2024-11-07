@@ -7,6 +7,7 @@ import { Confirm, Modal, NavbarPage } from '..'
 import { ArrowLeftIcon } from '@components/icons/ArrowLeftIcon'
 import { useToggle } from '@components/hooks'
 import config from '../../../../tailwind.config'
+import Sidebar from '../Sidebar/Sidebar'
 
 interface LayoutProps {
     children: ReactNode
@@ -150,6 +151,8 @@ const LayoutPage = ({ children, section, college, color, operator, backPath }: L
             {user.idUsuario && isAuth && (
                 <>
                     <NavbarPage session={user} />
+                    <Sidebar />
+
                     {section && (
                         <div className='relative bg-skyblue w-full px-5 md:px-28'>
                             <h1 className={`${color ? color : 'text-white'} pt-[10px] pb-[12px]  font-bold text-lg flex justify-center`}>

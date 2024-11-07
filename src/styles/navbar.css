@@ -1,0 +1,123 @@
+.header {
+    width: 100%;
+    height: 6rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    background-color: gray;
+    z-index: 99;
+    transition: 0.3s;
+    gap: 10px;
+}
+
+.header_left,
+.header_right {
+    display: flex;
+    align-items: center;
+}
+
+.header_toggle {
+    color: blue;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.header_avatar {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.l-navbar,
+.sidebar_bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 220px;
+    background-color: lightblue;
+    z-index: 99;
+}
+
+.sidebar {
+    font-weight: 400;
+}
+
+.sidebar.minified .l-navbar {
+    position: absolute;
+}
+
+.l-navbar .nav {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    user-select: none;
+}
+
+.sidebar.show .l-navbar .nav {
+    overflow: hidden;
+}
+
+.sidebar.minified .l-navbar .nav_list {
+    overflow: visible !important;
+}
+
+.sidebar.minified .l-navbar .nav_name,
+.sidebar.minified .l-navbar .nav_logo_name {
+    display: none;
+}
+
+.l-navbar ul {
+    position: relative;
+    list-style: none;
+    padding-left: 0;
+}
+
+.l-navbar .nav_logo,
+.l-navbar .nav_link {
+    display: flex;
+    column-gap: 1rem;
+    align-items: center;
+    padding: 0.75rem 0.75rem 0.75rem 1rem;
+    line-height: 1.2;
+}
+
+.l-navbar .nav_logo {
+    margin-bottom: 2rem;
+    padding-top: 1.5rem;
+}
+
+.l-navbar .nav_link {
+    position: relative;
+}
+
+.l-navbar .nav_title {
+    padding: 0.5rem 0 0.5rem 1rem;
+    color: #ffffff82;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+}
+
+.l-navbar .nav_subtitle {
+    color: var(--bs-light);
+    margin-bottom: 3px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* Tablets y PC */
+@media screen and (min-width: 769px) {
+    .sb-open {
+        .header {
+            padding-left: 0 0 0 240px;
+        }
+    }
+}
