@@ -24,13 +24,13 @@ export const menuList: ISidebarMenu[] = [
             {
                 title: 'Ubigeo',
                 icon: '/assets/icons/ico_menu_clase.svg',
-                url: '/representative/upload-requests',
+                url: '',
                 params: { typeClass: '1' }
             },
             {
                 title: 'Mesa',
                 icon: '/assets/icons/ico_menu_clase.svg',
-                url: '/representative/upload-requests',
+                url: '',
                 params: { typeClass: '3' }
             }
         ]
@@ -43,25 +43,25 @@ export const menuList: ISidebarMenu[] = [
             {
                 title: 'Puesta a cero',
                 icon: '/assets/icons/ico_menu_clase.svg',
-                url: '/representative/upload-requests',
+                url: '',
                 params: { typeClass: '1' }
             },
             {
                 title: 'Usuarios',
                 icon: '/assets/icons/ico_menu_clase.svg',
-                url: '/representative/upload-requests',
+                url: '',
                 params: { typeClass: '3' }
             },
             {
                 title: 'Incidencias',
                 icon: '/assets/icons/ico_menu_clase.svg',
-                url: '/representative/upload-requests',
+                url: '',
                 params: { typeClass: '3' }
             },
             {
                 title: 'Logs PKI',
                 icon: '/assets/icons/ico_menu_clase.svg',
-                url: '/representative/upload-requests',
+                url: '',
                 params: { typeClass: '3' }
             }
         ]
@@ -74,19 +74,19 @@ export const menuList: ISidebarMenu[] = [
             {
                 title: 'General',
                 icon: '/assets/icons/ico_menu_clase.svg',
-                url: '/representative/upload-requests',
+                url: '',
                 params: { typeClass: '1' }
             },
             {
                 title: 'Archivos transmitidos',
                 icon: '/assets/icons/ico_menu_clase.svg',
-                url: '/representative/upload-requests',
+                url: '',
                 params: { typeClass: '3' }
             },
             {
                 title: 'Incidencias',
                 icon: '/assets/icons/ico_menu_clase.svg',
-                url: '/representative/upload-requests',
+                url: '',
                 params: { typeClass: '3' }
             }
         ]
@@ -99,13 +99,13 @@ export const menuList: ISidebarMenu[] = [
             {
                 title: 'Metadata',
                 icon: '/assets/icons/ico_menu_clase.svg',
-                url: '/representative/upload-requests',
+                url: '',
                 params: { typeClass: '1' }
             },
             {
                 title: 'Log de bitácora',
                 icon: '/assets/icons/ico_menu_clase.svg',
-                url: '/representative/upload-requests',
+                url: '',
                 params: { typeClass: '3' }
             }
         ]
