@@ -23,10 +23,29 @@ const AdminIndex = () => {
 
     const routeCedulaElectoral = async () => {}
 
-    const getTitle = (user: UserSession) => {}
+    const getTitle = (user: UserSession) => {
+        let title = 'Módulo de administración'
+        if (!user) return title
+        switch (user.idUsuario) {
+            case ROLES.ROL_CRE:
+                title = 'Módulo de gestión de pines'
+                return title
+            case ROLES.ROL_CED:
+                title = 'Módulo de gestión de cédula electoral'
+                return title
+            case ROLES.ROL_PAD:
+                title = 'Módulo de gestión de padrón electoral'
+                return title
+            case ROLES.ROL_JOR:
+                title = 'Módulo de jornada electoral'
+                return title
+            default:
+                return title
+        }
+    }
 
     return (
-        <LayoutPage operator='' section={''}>
+        <LayoutPage operator='' section={getTitle(user!)}>
             <section className='w-full max-w-[1200px] mt-9 mx-auto'>
                 {user?.idUsuario === ROLES.ROL_PAD && (
                     <div className='flex flex-col lg:flex-row justify-center items-center pb-5'>

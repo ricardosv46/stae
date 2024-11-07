@@ -1,7 +1,9 @@
-import { OnpeIcon, UserIconHeader, VenpIcon } from '@components/icons'
+import { OnpeIcon, UserIconHeader } from '@components/icons'
 import React from 'react'
 import { UserSession } from '@services/types'
 import { useAuth } from '@store/auth'
+import { Sandwich } from '@components/icons/Sandwich'
+import { useSidebar } from '../Sidebar/SidebarContext'
 const NavbarPage = ({ session }: NavProps) => {
     if (session) return NavbarPageLogged(session)
     else return NavbarPageUnsigned()
@@ -18,32 +20,32 @@ const NavbarPageLogged = (session: UserSession, titleParam = '') => {
         logoutAction()
     }
 
+    const { toggle } = useSidebar()
+    const currentYear = new Date().getFullYear()
+
     return (
         <>
-            <header className='flex p-4 pb-3 md:gap-[50px] justify-between items-center md:pb-[27px] md:pt-[25px] md:px-10 '>
-                <div className='flex gap-8'>
-                    <a>
-                        <OnpeIcon className='w-[53px] md:w-[115px] h-[32px] md:h-[69px]' />
-                    </a>
-                    <a>
-                        <VenpIcon className='w-[108px] md:w-[200px] h-[32px] md:h-[60px] ' />
-                    </a>
+            <header className='header'>
+                <div className='header_left'>
+                    <div className='header_toggle' onClick={toggle}>
+                        <Sandwich />
+                    </div>
+                    <div className='header_title'>
+                        <h1 className='text-blue font-bold' >Monitoreo de Transmisión STAE - Proceso Electoral {currentYear}</h1>
+                    </div>
                 </div>
-                {title && (
-                    <p className='text-blue font-bold text-xl'>
-                        {title} - {session.proceso?.codigo}
-                    </p>
-                )}
-                <div className='flex gap-4 items-center w-[347px] justify-end'>
-                    <div className='  flex flex-col items-end'>
-                        <p className='font-light mr-1'>{session.idUsuario}</p>
-                        <button onClick={closeSession} className='text-xs font-medium text-gray-light cursor-pointer'>
-                            Cerrar sesión
+                <div className='header_right'>
+                    <div className='header_avatar'>
+                        <div className='  flex flex-col items-end'>
+                            <p className='font-light mr-1'>{session.idUsuario}</p>
+                            <button onClick={closeSession} className='text-xs font-medium text-gray-light cursor-pointer'>
+                                Cerrar sesión
+                            </button>
+                        </div>
+                        <button style={{ cursor: 'default' }}>
+                            <UserIconHeader />
                         </button>
                     </div>
-                    <button style={{ cursor: 'default' }}>
-                        <UserIconHeader />
-                    </button>
                 </div>
             </header>
         </>

@@ -7,6 +7,7 @@ import { Confirm, Modal, NavbarPage } from '..'
 import { ArrowLeftIcon } from '@components/icons/ArrowLeftIcon'
 import { useToggle } from '@components/hooks'
 import config from '../../../../tailwind.config'
+import Sidebar from '../Sidebar/Sidebar'
 
 interface LayoutProps {
     children: ReactNode
@@ -150,11 +151,13 @@ const LayoutPage = ({ children, section, college, color, operator, backPath }: L
             {user.idUsuario && isAuth && (
                 <>
                     <NavbarPage session={user} />
+                    <Sidebar />
+
                     {section && (
-                        <div className='relative bg-skyblue w-full px-5 md:px-28'>
-                            <h1 className={`${color ? color : 'text-white'} pt-[10px] pb-[12px]  font-bold text-lg flex justify-center`}>
+                        <div className='relative bg-blue w-full px-5 md:px-28 breadcrumb'>
+                            <h2 className={`${color ? color : 'text-white'} pt-[10px] pb-[12px]  font-bold text-lg flex justify-start`}>
                                 {section}
-                            </h1>
+                            </h2>
                             {backPath && (
                                 <button
                                     className='absolute left-2 lg:left-10 top-2 text-white cursor-pointer flex items-center gap-1'
@@ -169,7 +172,7 @@ const LayoutPage = ({ children, section, college, color, operator, backPath }: L
                         </div>
                     )}
 
-                    {!loadApp ? <main className='px-4 min-height pb-16'>{children}</main> : <div>Cargando</div>}
+                    {!loadApp ? <main className='px-4 min-height pb-16 app-container'>{children}</main> : <div>Cargando</div>}
                     <Modal top closeDisabled isOpen={isModalError} onClose={closeModalError}>
                         <Confirm
                             error
