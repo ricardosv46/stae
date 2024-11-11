@@ -24,7 +24,7 @@ export const menuList: ISidebarMenu[] = [
             {
                 title: 'Ubigeo',
                 icon: '/assets/icons/ico_menu_clase.svg',
-                url: '',
+                url: '/monitoreo/ubigeo',
                 params: { typeClass: '1' }
             },
             {

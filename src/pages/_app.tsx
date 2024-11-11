@@ -1,7 +1,6 @@
 import { SidebarProvider } from '@components/common/Sidebar/SidebarContext'
 import { useAuth } from '@store/auth'
 import '@styles/globals.css'
-import '@styles/navbar.css'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { NextPage } from 'next'
 import type { AppProps } from 'next/app'
