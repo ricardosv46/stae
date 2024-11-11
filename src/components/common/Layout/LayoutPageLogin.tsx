@@ -63,13 +63,12 @@ const LayoutPageLogin = ({ children, section, college, color }: LayoutProps) => 
                         <h1
                             className={`${
                                 color ? color : 'bg-skyblue text-white'
-                            } pt-[10px] pb-[12px]  font-bold text-lg flex justify-center`}>
+                            } pt-[10px] pb-[12px] font-bold text-lg flex justify-center`}>
                             {section}
                         </h1>
                     )}
 
-                    <main className='px-4 min-height'>{children}</main>
-                    <NavbarBrowser />
+                    <main className='p-4 min-height h-screen bg-login-bg bg-no-repeat bg-[length:100%_100%]'>{children}</main>
                 </>
             )}
         </>

@@ -30,9 +30,9 @@ const NavbarPageLogged = (session: UserSession, titleParam = '') => {
                     <div className='text-2xl cursor-pointer' onClick={toggle}>
                         <Sandwich />
                     </div>
-                    <h1 className='text-blue font-bold text-lg md:text-xl'>
-                        Monitoreo de Transmisión STAE - Proceso Electoral {currentYear}
-                    </h1>
+                    <div className='header_title'>
+                        <h1 className='text-blue font-bold'>Monitoreo de Transmisión STAE - Proceso Electoral {currentYear}</h1>
+                    </div>
                 </div>
                 <div className='flex items-center'>
                     <div className='flex flex-col items-end'>
@@ -53,12 +53,7 @@ const NavbarPageLogged = (session: UserSession, titleParam = '') => {
 const NavbarPageUnsigned = (title = '') => {
     return (
         <>
-            <header className='flex p-4 pb-3 md:gap-[50px] justify-between items-center md:pb-[27px] md:pt-[25px] md:px-10 '>
-                <div className='flex gap-8'>
-                    <a>
-                        <OnpeIcon className='w-[53px] md:w-[115px] h-[32px] md:h-[69px]' />
-                    </a>
-                </div>
+            <header className='flex md:gap-[50px] justify-between items-center'>
                 <p className='text-blue font-bold text-xl'>{title}</p>
                 <div className='flex gap-4 items-center w-[347px] justify-end'>
                     <div className='flex flex-col items-end'></div>
