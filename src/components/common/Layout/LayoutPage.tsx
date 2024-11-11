@@ -4,10 +4,10 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { ReactNode, useEffect, useState } from 'react'
 import { Confirm, Modal, NavbarPage } from '..'
-import { ArrowLeftIcon } from '@components/icons/ArrowLeftIcon'
 import { useToggle } from '@components/hooks'
-import config from '../../../../tailwind.config'
 import Sidebar from '../Sidebar/Sidebar'
+import { useSidebar } from '../Sidebar/SidebarContext'
+import Link from 'next/link'
 
 interface LayoutProps {
     children: ReactNode
@@ -21,6 +21,10 @@ interface LayoutProps {
 const LayoutPage = ({ children, section, college, color, operator, backPath }: LayoutProps) => {
     const [isModalError, openModalError, closeModalError] = useToggle(false)
     const { user, isAuth, isLoading, refreshAuth, logoutAction, modalLogoutAction, modalLogout } = useAuth()
+    const { isOpen } = useSidebar()
+    const router = useRouter()
+    const [loadApp, setLoadApp] = useState(true)
+
     useEffect(() => {
         refreshAuth()
     }, [])
@@ -59,7 +63,6 @@ const LayoutPage = ({ children, section, college, color, operator, backPath }: L
         }
     }, [])
 
-    const router = useRouter()
     useEffect(() => {
         if (!isLoading) {
             if (!isAuth) {
@@ -67,8 +70,6 @@ const LayoutPage = ({ children, section, college, color, operator, backPath }: L
             }
         }
     }, [isLoading, isAuth])
-
-    const [loadApp, setLoadApp] = useState(true)
 
     useEffect(() => {
         validateRole()
@@ -146,6 +147,26 @@ const LayoutPage = ({ children, section, college, color, operator, backPath }: L
 
     if (isLoading || !isAuth || !user) return <div>Cargando</div>
 
+    // Generar breadcrumb dinámico basado en la URL
+    const generateBreadcrumb = () => {
+        const paths = router.asPath.split('/').filter(Boolean) // Divide la ruta y elimina valores vacíos
+        return (
+            <>
+                <span className='text-sm text-gray-300'>
+                    <Link href='/' legacyBehavior>
+                        <a className='capitalize hover:underline'>Inicio</a>
+                    </Link>
+                </span>
+                {paths.map((path, index) => (
+                    <span key={index} className='text-sm text-gray-300'>
+                        {' / '}
+                        <span className='capitalize'>{path}</span>
+                    </span>
+                ))}
+            </>
+        )
+    }
+
     return (
         <>
             {user.idUsuario && isAuth && (
@@ -154,31 +175,23 @@ const LayoutPage = ({ children, section, college, color, operator, backPath }: L
                     <Sidebar />
 
                     {section && (
-                        <div className='relative bg-blue w-full px-5 md:px-28 breadcrumb'>
-                            <h2 className={`${color ? color : 'text-white'} pt-[10px] pb-[12px]  font-bold text-lg flex justify-start`}>
-                                {section}
-                            </h2>
-                            {backPath && (
-                                <button
-                                    className='absolute left-2 lg:left-10 top-2 text-white cursor-pointer flex items-center gap-1'
-                                    onClick={() => {
-                                        if (typeof backPath === 'string') router.push(backPath)
-                                        else backPath()
-                                    }}>
-                                    <ArrowLeftIcon className='w-8 h-8 ' />
-                                    <p className='lg:block hidden'>Atrás</p>
-                                </button>
-                            )}
+                        <div className={`relative bg-blue w-full ${isOpen ? 'pl-72' : 'pl-32'} py-4`}>
+                            <h2 className={`${color ? color : 'text-white'} font-bold text-lg`}>{section}</h2>
+                            <div className='mt-2 text-white'>{generateBreadcrumb()}</div>
                         </div>
                     )}
 
-                    {!loadApp ? <main className='px-4 min-height pb-16 app-container'>{children}</main> : <div>Cargando</div>}
+                    {!loadApp ? (
+                        <main className={`px-4 min-height pb-16 app-container ${isOpen ? 'pl-72' : 'pl-32'} `}>{children}</main>
+                    ) : (
+                        <div>Cargando</div>
+                    )}
                     <Modal top closeDisabled isOpen={isModalError} onClose={closeModalError}>
                         <Confirm
                             error
                             title='Error'
                             onConfirm={closeModalError}
-                            message={'No se pudo acceder al servicio. Verifique su conexión a internet'}
+                            message='No se pudo acceder al servicio. Verifique su conexión a internet'
                             onCancel={closeModalError}
                         />
                     </Modal>
@@ -187,7 +200,7 @@ const LayoutPage = ({ children, section, college, color, operator, backPath }: L
                             error
                             title='Error'
                             onConfirm={logoutAction}
-                            message={'Su sesión ha finalizado'}
+                            message='Su sesión ha finalizado'
                             onCancel={() => modalLogoutAction(false)}
                         />
                     </Modal>
