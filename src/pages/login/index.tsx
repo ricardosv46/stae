@@ -1,6 +1,6 @@
-import { Button, CardShadow, Confirm, Input, LayoutPageLogin, Modal } from '@components/common'
+import { Button, CardShadow, Confirm, Input, LayoutPageLogin, Modal, NavbarBrowser } from '@components/common'
 import { useToggleModal, useToken } from '@components/hooks'
-import { PasswordIcon, ReloadIcon, UserIcon, VenpIcon } from '@components/icons'
+import { OnpeIcon, PasswordIcon, ReloadIcon, UserIcon, VenpIcon } from '@components/icons'
 import { api } from '@services/api'
 import { ProcesoElectoral } from '@services/types'
 import { useAuth } from '@store/auth'
@@ -13,7 +13,7 @@ const Verificar = () => {
     const placeHolderText = '-Seleccionar-'
     const [isOpenModal, OpenModal, CloseModal, viewModal] = useToggleModal(true)
     const router = useRouter()
-    const [user, setUser] = useState('')
+    const [user, setUser] = useState('OPERADORADM')
     const [captcha, setCaptcha] = useState('')
     const [password, setPassword] = useState('')
     const [ListaProcesoElectoral, SetProcesoElectoral] = useState<ProcesoElectoral[]>([])
@@ -24,7 +24,7 @@ const Verificar = () => {
     const initialized = useRef(false)
     const { loginAction } = useAuth()
 
-    const setUsername = async (event: ChangeEvent<HTMLSelectElement>) => {
+    const setUsername = async (event: ChangeEvent<HTMLInputElement>) => {
         try {
             setProcess('')
             const { value } = event.target
@@ -115,71 +115,54 @@ const Verificar = () => {
     }
     return (
         <LayoutPageLogin section=''>
-            <div className='flex justify-center mb-[10px]'>
-                <CardShadow className='w-[490px] flex flex-col pt-8 pb-10 p-20 border-gray-light'>
-                    <VenpIcon className='w-[108px] md:w-[200px] h-[32px] md:h-[60px] mr-auto ml-auto mb-8 inline-block text-center' />
-                    Usuario
-                    <div className='flex mb-3'>
-                        <div className='bg-blue w-12 h-12 p-0 text-center content-center'>
-                            <UserIcon />
+            <div className='flex justify-center mb-[10px] pb-28'>
+                <div className='w-[550px] flex flex-col bg-white pt-8 pb-10 border-4 rounded-3xl border-white'>
+                    <OnpeIcon className='w-[108px] md:w-[200px] mr-auto ml-auto mb-8 inline-block text-center' />
+                    <div className='text-center font-bold text-2xl text-blue mb-4'>Monitoreo de transmisión STAE</div>
+                    <div className='text-center text-sm text-blue mb-5'>Versión: SIMULACRO</div>
+                    <div className='w-[320px] mr-auto ml-auto'>
+                        <div className='flex mb-5'>
+                            <Input
+                                type='text'
+                                icon={UserIcon}
+                                onChange={setUsername}
+                                value={user}
+                                placeholder='Usuario'
+                                classInput='w-[280px] h-12 mb-5'
+                                maxLength={20}
+                            />
                         </div>
-                        <select
-                            onChange={setUsername}
-                            className='bg-white border border-gray-300 w-[280px] text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 '>
-                            <option>{placeHolderText}</option>
-                            <option>OPERADORADM</option>
-                            <option>OPERADORJOR</option>
-                            <option>OPERADORPAD</option>
-                            <option>OPERADORCRE</option>
-                            <option>OPERADORCED</option>
-                        </select>
-                    </div>
-                    <div className='relative'>
-                        Contraseña
+                        <div className='relative mb-5'>
+                            <Input
+                                type='password'
+                                icon={PasswordIcon}
+                                onChange={handlePassword}
+                                placeholder='Contraseña'
+                                classInput='w-[280px] h-12 mb-5'
+                                maxLength={20}
+                            />
+                        </div>
+                        <div className='flex items-center gap-3 mb-5 '>
+                            <div id='captchaLoad' className='inline-block'></div>
+                            <ReloadIcon width={25} height={25} className='cursor-pointer' onClick={reloadCaptcha} />
+                        </div>
                         <Input
-                            type='password'
-                            icon={PasswordIcon}
-                            onChange={handlePassword}
-                            placeholder='Contraseña'
-                            classInput='w-full h-12 mb-3'
-                            maxLength={20}
+                            value={captcha}
+                            type='captcha'
+                            onChange={handleCaptcha}
+                            placeholder='Código de verificación'
+                            classInput='w-full h-12 mb-5'
+                            maxLength={7}
                         />
+                        <div className='inline-flex mt-2'></div>
+                        <div className='gap-2 grid-cols-2 content-around text-center mb-5'>
+                            <Button color='red' title='Aceptar' className='w-[200px] mx-auto' onClick={performLogin} />
+                        </div>
+                        <NavbarBrowser />
                     </div>
-                    {user && user !== 'OPERADORADM' && (
-                        <>
-                            Proceso electoral
-                            <select
-                                onChange={handleProcess}
-                                className='bg-white border border-gray-300 text-gray-900 mb-6 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 '>
-                                <option value=''>-Seleccionar-</option>
-                                {ListaProcesoElectoral.length > 0 &&
-                                    ListaProcesoElectoral.map((p) => (
-                                        <option key={p.codigo} value={p.codigo}>
-                                            {p.nombre}
-                                        </option>
-                                    ))}
-                            </select>
-                        </>
-                    )}
-                    <div className='flex items-center gap-3 mb-3 '>
-                        <div id='captchaLoad' className='inline-block'></div>
-                        <ReloadIcon width={25} height={25} className='inline-block cursor-pointer' onClick={reloadCaptcha} />
-                    </div>
-                    Código de verificación
-                    <Input
-                        value={captcha}
-                        type='captcha'
-                        onChange={handleCaptcha}
-                        placeholder='Código de verificación'
-                        classInput='w-full h-12 mb-3'
-                        maxLength={7}
-                    />
-                    <div className='inline-flex mt-2'></div>
-                    <div className='gap-2 grid-cols-2 content-around text-center'>
-                        <Button color='red' title='Ingresar' className='w-[300px] mx-auto' onClick={performLogin} />
-                    </div>
-                </CardShadow>
+                </div>
             </div>
+
             <Modal closeDisabled={true} isOpen={viewModal === VIEWS_MODAL.error && isOpenModal} onClose={CloseModal}>
                 <Confirm error title='Error' onConfirm={CloseModal} message={errorMessage} onCancel={CloseModal} />
             </Modal>
