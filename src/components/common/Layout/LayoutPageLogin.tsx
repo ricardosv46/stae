@@ -1,9 +1,8 @@
 import { useAuth } from '@store/auth'
+import { useModalError } from '@store/modal/modalError'
 import { useRouter } from 'next/router'
 import { ReactNode, useEffect } from 'react'
-import { NavbarBrowser, NavbarPage } from '..'
-import axios from 'axios'
-import apiService from '@services/axios/configAxios'
+import { Confirm, Modal, NavbarPage, Spinner } from '..'
 interface LayoutProps {
     children: ReactNode
     section?: string
@@ -14,6 +13,7 @@ interface LayoutProps {
 
 const LayoutPageLogin = ({ children, section, college, color }: LayoutProps) => {
     const { user, isAuth, isLoading, refreshAuth } = useAuth()
+    const { isOpen: isModalError, close: closeModalError, ...modalErrorProps } = useModalError()
     const router = useRouter()
 
     useEffect(() => {
@@ -26,33 +26,7 @@ const LayoutPageLogin = ({ children, section, college, color }: LayoutProps) => 
         }
     }, [isLoading, isAuth])
 
-    useEffect(() => {
-        const responseInterceptor = apiService.interceptors.response.use(
-            (response) => {
-                if (response?.data?.status === 443) {
-                    return Promise.reject(response)
-                } else {
-                    return response
-                }
-            },
-            (error) => {
-                const urlsNginx = ['/nodo/cargarExcelNodo', '/agrupol/cargarExcelAgruPol', '/candidato/cargarExcelDetalleCandidatos']
-                if (error?.code === 'ERR_NETWORK' && !error?.config?.url.includes(urlsNginx)) {
-                    error.message = 'No se pudo acceder al servicio. Verifique su conexión a internet'
-                    return Promise.reject(error)
-                } else if (error?.data?.status === 443) {
-                } else {
-                    return Promise.reject(error)
-                }
-            }
-        )
-
-        return () => {
-            axios.interceptors.response.eject(responseInterceptor)
-        }
-    }, [])
-
-    if (isLoading || isAuth) return <div>Cargando</div>
+    if (isLoading || isAuth) return <Spinner absolute />
 
     return (
         <>
@@ -68,9 +42,15 @@ const LayoutPageLogin = ({ children, section, college, color }: LayoutProps) => 
                         </h1>
                     )}
 
-                    <main className='p-4 min-height h-screen bg-login-bg bg-no-repeat bg-[length:100%_100%]'>{children}</main>
+                    <main className='p-4 flex justify-center items-center  h-screen bg-login-bg bg-no-repeat bg-[length:100%_100%]'>
+                        {children}
+                    </main>
                 </>
             )}
+
+            <Modal top closeDisabled isOpen={isModalError} onClose={closeModalError}>
+                <Confirm {...modalErrorProps} />
+            </Modal>
         </>
     )
 }

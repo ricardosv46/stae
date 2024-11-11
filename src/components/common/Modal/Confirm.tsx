@@ -1,6 +1,7 @@
 import { WarningIcon, ConfirmIcon } from '@components/icons'
 import React, { ReactNode } from 'react'
 import { Button } from '../Button/Button'
+import { useModalError } from '@store/modal/modalError'
 
 interface ConfirmProps {
     children?: ReactNode
@@ -25,6 +26,18 @@ const Confirm = ({
     warnIcon,
     onlybutton = false
 }: ConfirmProps) => {
+    const { close } = useModalError()
+
+    const handleCancel = () => {
+        onCancel()
+        close()
+    }
+
+    const handleConfirm = () => {
+        onConfirm()
+        close()
+    }
+
     return (
         <div className='bg-white w-[700px]  flex-col flex items-center p-[50px]'>
             {warnIcon === true || (error && !onlybutton && title === 'Error') ? <WarningIcon /> : <ConfirmIcon />}
@@ -34,14 +47,14 @@ const Confirm = ({
             <div className='flex text-lg font-semibold text-white gap-6 justify-center mt-[58px]'>
                 {!error && !onlybutton && (
                     <>
-                        <Button color='blue' title='No' className='w-[200px]' onClick={onCancel} />
+                        <Button color='blue' title='No' className='w-[200px]' onClick={handleCancel} />
 
-                        <Button color='red' title='Sí' className='w-[200px]' onClick={onConfirm} />
+                        <Button color='red' title='Sí' className='w-[200px]' onClick={handleConfirm} />
                     </>
                 )}
-                {error && !onlybutton && <Button color='red' title={buttonTitle} className='w-[200px]' onClick={onConfirm} />}
+                {error && !onlybutton && <Button color='red' title={buttonTitle} className='w-[200px]' onClick={handleConfirm} />}
 
-                {onlybutton && <Button color='red' title={buttonTitle} className='w-[200px]' onClick={onConfirm} />}
+                {onlybutton && <Button color='red' title={buttonTitle} className='w-[200px]' onClick={handleConfirm} />}
             </div>
         </div>
     )

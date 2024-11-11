@@ -1,13 +1,13 @@
-import apiService from '@services/axios/configAxios'
 import { useAuth } from '@store/auth'
+import { useModalError } from '@store/modal/modalError'
+import apiService from '@utils/axios/configAxios'
 import axios from 'axios'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { ReactNode, useEffect, useState } from 'react'
-import { Confirm, Modal, NavbarPage } from '..'
-import { useToggle } from '@components/hooks'
+import { Confirm, Modal, NavbarPage, Spinner } from '..'
 import Sidebar from '../Sidebar/Sidebar'
 import { useSidebar } from '../Sidebar/SidebarContext'
-import Link from 'next/link'
 
 interface LayoutProps {
     children: ReactNode
@@ -19,7 +19,8 @@ interface LayoutProps {
 }
 
 const LayoutPage = ({ children, section, college, color, operator, backPath }: LayoutProps) => {
-    const [isModalError, openModalError, closeModalError] = useToggle(false)
+    const { isOpen: isModalError, close: closeModalError, ...modalErrorProps } = useModalError()
+
     const { user, isAuth, isLoading, refreshAuth, logoutAction, modalLogoutAction, modalLogout } = useAuth()
     const { isOpen } = useSidebar()
     const router = useRouter()
@@ -34,24 +35,20 @@ const LayoutPage = ({ children, section, college, color, operator, backPath }: L
             (response) => {
                 if (response?.data?.status === 443) {
                     modalLogoutAction(true)
-                    return Promise.reject(response)
+                    return Promise.reject({ ...response, hidden: true })
                 } else {
                     return response
                 }
             },
             (error) => {
-                const urlsNginx = [
-                    '/nodo/cargarExcelNodo',
-                    '/agrupol/cargarExcelAgruPol',
-                    '/candidato/cargarExcelDetalleCandidatos',
-                    '/pin/email/validateconnection'
-                ]
-
-                if (error?.code === 'ERR_NETWORK' && !urlsNginx.includes(error?.config?.url)) {
+                if (!navigator.onLine) {
                     error.message = 'No se pudo acceder al servicio. Verifique su conexión a internet'
                     return Promise.reject(error)
                 } else if (error?.data?.status === 443) {
                     modalLogoutAction(true)
+                    return Promise.reject({ ...error, hidden: true })
+                } else if (error?.response?.status === 403) {
+                    return Promise.reject({ ...error, hidden: true })
                 } else {
                     return Promise.reject(error)
                 }
@@ -145,7 +142,7 @@ const LayoutPage = ({ children, section, college, color, operator, backPath }: L
         return false
     }
 
-    if (isLoading || !isAuth || !user) return <div>Cargando</div>
+    if (isLoading || !isAuth || !user) return <Spinner absolute />
 
     // Generar breadcrumb dinámico basado en la URL
     const generateBreadcrumb = () => {
@@ -187,13 +184,7 @@ const LayoutPage = ({ children, section, college, color, operator, backPath }: L
                         <div>Cargando</div>
                     )}
                     <Modal top closeDisabled isOpen={isModalError} onClose={closeModalError}>
-                        <Confirm
-                            error
-                            title='Error'
-                            onConfirm={closeModalError}
-                            message='No se pudo acceder al servicio. Verifique su conexión a internet'
-                            onCancel={closeModalError}
-                        />
+                        <Confirm {...modalErrorProps} />
                     </Modal>
                     <Modal top closeDisabled isOpen={modalLogout} onClose={() => modalLogoutAction(false)}>
                         <Confirm

@@ -1,6 +1,5 @@
 import { OnpeIcon, UserIconHeader } from '@components/icons'
 import React from 'react'
-import { UserSession } from '@services/types'
 import { useAuth } from '@store/auth'
 import { Sandwich } from '@components/icons/Sandwich'
 import { useSidebar } from '../Sidebar/SidebarContext'
@@ -9,10 +8,10 @@ const NavbarPage = ({ session }: NavProps) => {
     else return NavbarPageUnsigned()
 }
 interface NavProps {
-    session?: UserSession | null
+    session?: any | null
     title?: string
 }
-const NavbarPageLogged = (session: UserSession, titleParam = '') => {
+const NavbarPageLogged = (session: any, titleParam = '') => {
     const title = titleParam === '' ? session.proceso?.nombreCorto : titleParam
     const { logoutAction } = useAuth()
     const closeSession = () => {
@@ -25,7 +24,7 @@ const NavbarPageLogged = (session: UserSession, titleParam = '') => {
 
     return (
         <>
-            <header className={`flex items-center justify-between w-full h-16 bg-white ${isOpen ? 'pl-72': 'pl-32'} md:pr-8`}>
+            <header className={`flex items-center justify-between w-full h-16 bg-white ${isOpen ? 'pl-72' : 'pl-32'} md:pr-8`}>
                 <div className='flex items-center space-x-4'>
                     <div className='text-2xl cursor-pointer' onClick={toggle}>
                         <Sandwich />
@@ -42,7 +41,7 @@ const NavbarPageLogged = (session: UserSession, titleParam = '') => {
                         </button>
                     </div>
                     <button className='bg-blue-600 rounded-full w-16 h-16 flex items-center justify-center'>
-                        <UserIconHeader width={50} height={50}/>
+                        <UserIconHeader width={50} height={50} />
                     </button>
                 </div>
             </header>
