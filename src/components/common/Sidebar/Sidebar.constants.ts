@@ -30,7 +30,7 @@ export const menuList: ISidebarMenu[] = [
             {
                 title: 'Mesa',
                 icon: '/assets/icons/ico_menu_clase.svg',
-                url: '',
+                url: '/monitoreo/mesa',
                 params: { typeClass: '3' }
             }
         ]

@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 import { ApexOptions } from 'apexcharts'
+import MesaTransmitidas from '@modules/monitoreo/components/MesasTransmitidas'
+import MesasPendientesTransmision from '@modules/monitoreo/components/MesasPendientesTransmision'
 
 const Ubigeo = () => {
     const [odpeOptions, SetOdpeOptions] = useState<any[]>([])
@@ -12,6 +14,8 @@ const Ubigeo = () => {
     const [provinciaOptions, SetProvinciaOptions] = useState<any[]>([])
     const [distritoOptions, SetDistritoOptions] = useState<any[]>([])
     const [localVotacionOptions, SetLocalVotacionOptions] = useState<any[]>([])
+
+    const [typeOfView, setTypeOfView] = useState<any>('1')
 
     const [filtrosMonitoreo, setValues] = useState<any>({
         selectedOdpe: '',
@@ -144,7 +148,11 @@ const Ubigeo = () => {
                             <div className='px-2'>
                                 <CheckIcon width={32} height={32} />
                             </div>
-                            <div className='display-inline cursor-pointer'>
+                            <div
+                                onClick={() => {
+                                    setTypeOfView('2')
+                                }}
+                                className='display-inline cursor-pointer'>
                                 <p className='text-white text-center font-bold p-4 bg-[#0073cf]'>Ver mesas transmitidas</p>
                             </div>
                         </div>
@@ -153,12 +161,17 @@ const Ubigeo = () => {
                             <div className='px-2'>
                                 <WarningIcon width={32} height={32} />
                             </div>
-                            <div className='display-inline cursor-pointer'>
+                            <div
+                                onClick={() => {
+                                    setTypeOfView('3')
+                                }}
+                                className='display-inline cursor-pointer'>
                                 <p className='text-white text-center font-bold p-4 bg-[#0073cf]'>Ver mesas pendientes</p>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div className='mx-auto p-4'>
                     <h2 className='text-center text-blue-700 font-bold text-xl mb-4 text-blue'>ELECCIONES GENERALES 2026</h2>
                     <div className='border-t border-gray-200 my-4'></div>
@@ -210,63 +223,73 @@ const Ubigeo = () => {
                         transmitida.
                     </p>
                 </div>
-                <div className='mx-auto p-4 flex flex-col md:flex-row gap-8'>
-                    <div className='w-full md:w-1/2'>
-                        <h3 className='text-center text-lg font-semibold text-gray-800 mb-2'>
-                            AVANCE DE TRANSMISIÓN DE LAS ACTAS DE CADA ELECCIÓN
-                        </h3>
-                        <p className='text-center text-sm text-gray-600 mb-4'>(Cada mesa tiene 1 acta por elección)</p>
+                {typeOfView == '1' && (
+                    <div>
+                        <div className='mx-auto p-4 flex flex-col md:flex-row gap-8'>
+                            <div className='w-full md:w-1/2'>
+                                <h3 className='text-center text-lg font-semibold text-gray-800 mb-2'>
+                                    AVANCE DE TRANSMISIÓN DE LAS ACTAS DE CADA ELECCIÓN
+                                </h3>
+                                <p className='text-center text-sm text-gray-600 mb-4'>(Cada mesa tiene 1 acta por elección)</p>
 
-                        <table className='w-full border border-gray-300 text-center'>
-                            <thead className='bg-gray-100'>
-                                <tr>
-                                    <th className='py-2 px-4 text-sm font-semibold text-gray-700 border border-gray-300'>Elección</th>
-                                    <th className='py-2 px-4 text-sm font-semibold text-gray-700 border border-gray-300'>
-                                        Actas transmitidas
-                                    </th>
-                                    <th className='py-2 px-4 text-sm font-semibold text-gray-700 border border-gray-300'>
-                                        Actas pendientes
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td className='py-3 px-4 text-gray-800 border border-gray-300'>Presidente y vicepresidentes</td>
-                                    <td className='py-3 px-4 text-gray-800 border border-gray-300'>6,651</td>
-                                    <td className='py-3 px-4 text-gray-800 border border-gray-300'>11,351</td>
-                                </tr>
-                                <tr className='bg-gray-50'>
-                                    <td className='py-3 px-4 text-gray-800 border border-gray-300'>Diputados</td>
-                                    <td className='py-3 px-4 text-gray-800 border border-gray-300'>4,200</td>
-                                    <td className='py-3 px-4 text-gray-800 border border-gray-300'>13,802</td>
-                                </tr>
-                                <tr>
-                                    <td className='py-3 px-4 text-gray-800 border border-gray-300'>Senadores (Distrito único)</td>
-                                    <td className='py-3 px-4 text-gray-800 border border-gray-300'>4,200</td>
-                                    <td className='py-3 px-4 text-gray-800 border border-gray-300'>13,802</td>
-                                </tr>
-                                <tr className='bg-gray-50'>
-                                    <td className='py-3 px-4 text-gray-800 border border-gray-300'>Senadores (Distrito múltiple)</td>
-                                    <td className='py-3 px-4 text-gray-800 border border-gray-300'>4,200</td>
-                                    <td className='py-3 px-4 text-gray-800 border border-gray-300'>13,802</td>
-                                </tr>
-                                <tr>
-                                    <td className='py-3 px-4 text-gray-800 border border-gray-300'>Parlamento andino</td>
-                                    <td className='py-3 px-4 text-gray-800 border border-gray-300'>4,200</td>
-                                    <td className='py-3 px-4 text-gray-800 border border-gray-300'>13,802</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                                <table className='w-full border border-gray-300 text-center'>
+                                    <thead className='bg-gray-100'>
+                                        <tr>
+                                            <th className='py-2 px-4 text-sm font-semibold text-gray-700 border border-gray-300'>
+                                                Elección
+                                            </th>
+                                            <th className='py-2 px-4 text-sm font-semibold text-gray-700 border border-gray-300'>
+                                                Actas transmitidas
+                                            </th>
+                                            <th className='py-2 px-4 text-sm font-semibold text-gray-700 border border-gray-300'>
+                                                Actas pendientes
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td className='py-3 px-4 text-gray-800 border border-gray-300'>Presidente y vicepresidentes</td>
+                                            <td className='py-3 px-4 text-gray-800 border border-gray-300'>6,651</td>
+                                            <td className='py-3 px-4 text-gray-800 border border-gray-300'>11,351</td>
+                                        </tr>
+                                        <tr className='bg-gray-50'>
+                                            <td className='py-3 px-4 text-gray-800 border border-gray-300'>Diputados</td>
+                                            <td className='py-3 px-4 text-gray-800 border border-gray-300'>4,200</td>
+                                            <td className='py-3 px-4 text-gray-800 border border-gray-300'>13,802</td>
+                                        </tr>
+                                        <tr>
+                                            <td className='py-3 px-4 text-gray-800 border border-gray-300'>Senadores (Distrito único)</td>
+                                            <td className='py-3 px-4 text-gray-800 border border-gray-300'>4,200</td>
+                                            <td className='py-3 px-4 text-gray-800 border border-gray-300'>13,802</td>
+                                        </tr>
+                                        <tr className='bg-gray-50'>
+                                            <td className='py-3 px-4 text-gray-800 border border-gray-300'>
+                                                Senadores (Distrito múltiple)
+                                            </td>
+                                            <td className='py-3 px-4 text-gray-800 border border-gray-300'>4,200</td>
+                                            <td className='py-3 px-4 text-gray-800 border border-gray-300'>13,802</td>
+                                        </tr>
+                                        <tr>
+                                            <td className='py-3 px-4 text-gray-800 border border-gray-300'>Parlamento andino</td>
+                                            <td className='py-3 px-4 text-gray-800 border border-gray-300'>4,200</td>
+                                            <td className='py-3 px-4 text-gray-800 border border-gray-300'>13,802</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
-                    <div className='w-full md:w-1/2 flex flex-col items-center'>
-                        <h4 className='text-center text-lg font-semibold text-blue-700 mb-4'>
-                            Avance de Transmisión de mesas (*)
-                            <br /> Elección Presidente y vicepresidentes
-                        </h4>
-                        {isClient && <Chart options={options} series={series} type='pie' width='400' />}
+                            <div className='w-full md:w-1/2 flex flex-col items-center'>
+                                <h4 className='text-center text-lg font-semibold text-blue-700 mb-4'>
+                                    Avance de Transmisión de mesas (*)
+                                    <br /> Elección Presidente y vicepresidentes
+                                </h4>
+                                {isClient && <Chart options={options} series={series} type='pie' width='400' />}
+                            </div>
+                        </div>
                     </div>
-                </div>
+                )}
+                {typeOfView == '2' && <MesaTransmitidas />}
+                {typeOfView == '3' && <MesasPendientesTransmision />}
             </section>
         </LayoutPage>
     )
