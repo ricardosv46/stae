@@ -38,7 +38,7 @@ const Sidebar: React.FC = () => {
     }
 
     return (
-        <div className={`fixed top-0 left-0 bottom-0 z-50 transition-all ${isOpen ? 'w-64' : 'w-20'} bg-sky-200`}>
+        <div className={`fixed top-0 left-0 bottom-0 z-10 transition-all ${isOpen ? 'w-64' : 'w-20'} bg-sky-200`}>
             <div className='flex flex-col h-full p-4'>
                 <div className='flex items-center justify-center mb-8'>
                     <img src='/assets/icons/isotipo_barra_lateral.svg' alt='ONPE Logo' className='h-12 w-auto' />
