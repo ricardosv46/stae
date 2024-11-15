@@ -99,13 +99,13 @@ export const menuList: ISidebarMenu[] = [
             {
                 title: 'Metadata',
                 icon: '/assets/icons/ico_menu_clase.svg',
-                url: '',
+                url: '/microformas/metadata',
                 params: { typeClass: '1' }
             },
             {
                 title: 'Log de bitácora',
                 icon: '/assets/icons/ico_menu_clase.svg',
-                url: '',
+                url: '/microformas/bitacora',
                 params: { typeClass: '3' }
             }
         ]
