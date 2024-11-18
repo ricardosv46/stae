@@ -1,11 +1,11 @@
 import { WarningIcon, ConfirmIcon } from '@components/icons'
 import React, { ReactNode } from 'react'
 import { Button } from '../Button/Button'
-import { useModalError } from '@store/modal/modalError'
+import { useModalConfirm } from '@store/modal/modalConfirm'
 
 interface ConfirmProps {
     children?: ReactNode
-    onCancel: () => void
+    onCancel?: () => void
     onConfirm: () => void
     error?: boolean
     warnIcon?: boolean
@@ -26,10 +26,12 @@ const Confirm = ({
     warnIcon,
     onlybutton = false
 }: ConfirmProps) => {
-    const { close } = useModalError()
+    const { close } = useModalConfirm()
 
     const handleCancel = () => {
-        onCancel()
+        if (onCancel) {
+            onCancel()
+        }
         close()
     }
 

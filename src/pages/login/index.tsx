@@ -6,7 +6,7 @@ import { useAuth } from '@store/auth'
 import { useEffect } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import * as yup from 'yup'
-import { useModalError } from '../../store/modal/modalError'
+import { useModalConfirm } from '../../store/modal/modalConfirm'
 
 const validationSchema = yup.object().shape({
     username: yup.string().required('El usuario es requerido'),
@@ -22,7 +22,7 @@ interface FormData {
 
 const Login = () => {
     const { loginAction } = useAuth()
-    const { open: openModalError, isOpen } = useModalError()
+    const { open: openModalError } = useModalConfirm()
 
     const {
         control,

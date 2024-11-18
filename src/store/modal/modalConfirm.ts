@@ -11,7 +11,7 @@ interface OpenProps {
     warnIcon?: boolean
 }
 
-interface ModalErrorStore {
+interface ModalConfirmStore {
     isOpen: boolean
     message: string
     onConfirm: () => void
@@ -25,7 +25,7 @@ interface ModalErrorStore {
     close: () => void
 }
 
-export const useModalError = create<ModalErrorStore>((set) => ({
+export const useModalConfirm = create<ModalConfirmStore>((set) => ({
     isOpen: false,
     message: '',
     onConfirm: () => {},
@@ -36,6 +36,7 @@ export const useModalError = create<ModalErrorStore>((set) => ({
     error: true,
     warnIcon: false,
     open: ({ message, onConfirm, onCancel, buttonTitle, onlyButton, title, error, warnIcon }) => {
+        close()
         set({
             isOpen: true,
             message,

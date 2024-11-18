@@ -1,5 +1,5 @@
 import { useAuth } from '@store/auth'
-import { useModalError } from '@store/modal/modalError'
+import { useModalConfirm } from '@store/modal/modalConfirm'
 import apiService from '@utils/axios/configAxios'
 import axios from 'axios'
 import Link from 'next/link'
@@ -8,6 +8,8 @@ import { ReactNode, useEffect, useState } from 'react'
 import { Confirm, Modal, NavbarPage, Spinner } from '..'
 import Sidebar from '../Sidebar/Sidebar'
 import { useSidebar } from '../Sidebar/SidebarContext'
+import { Loading } from '../Modal/Loading'
+import { useModalLoading } from '@store/modal/modalLoading'
 
 interface LayoutProps {
     children: ReactNode
@@ -19,7 +21,9 @@ interface LayoutProps {
 }
 
 const LayoutPage = ({ children, section, college, color, operator, backPath }: LayoutProps) => {
-    const { isOpen: isModalError, close: closeModalError, ...modalErrorProps } = useModalError()
+    const { isOpen: isModalError, close: closeModalError, ...modalErrorProps } = useModalConfirm()
+
+    const { isOpen: isModalLoading, close: closeModalLoading, closeDisabled, ...modalLoadingProps } = useModalLoading()
 
     const { user, isAuth, isLoading, refreshAuth, logoutAction, modalLogoutAction, modalLogout } = useAuth()
     const { isOpen } = useSidebar()
@@ -185,6 +189,10 @@ const LayoutPage = ({ children, section, college, color, operator, backPath }: L
                     )}
                     <Modal top closeDisabled isOpen={isModalError} onClose={closeModalError}>
                         <Confirm {...modalErrorProps} />
+                    </Modal>
+
+                    <Modal top closeDisabled={closeDisabled} isOpen={isModalLoading} onClose={closeModalLoading}>
+                        <Loading {...modalLoadingProps} />
                     </Modal>
                     <Modal top closeDisabled isOpen={modalLogout} onClose={() => modalLogoutAction(false)}>
                         <Confirm

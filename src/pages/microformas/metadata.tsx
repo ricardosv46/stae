@@ -1,25 +1,23 @@
-import { Confirm, LayoutPage, Modal } from '@components/common'
+import { LayoutPage } from '@components/common'
 import { useToggleModal } from '@components/hooks'
-import { LoadingSpin } from '@components/icons'
 import { ActaEntregaUsoIcon } from '@components/icons/ActaEntregaUsoIcon'
 import { ActaEscrutinioIcon } from '@components/icons/ActaEscrutinioIcon'
 import { ConvenioErepIcon } from '@components/icons/ConvenioErepIcon'
 import { GenerarMetadataIcon } from '@components/icons/GenerarMetadataIcon'
 import { ReportePuestaCeroIcon } from '@components/icons/ReportePuestaCeroIcon'
-
-enum VIEWS_MODAL {
-    messageBox = 'messageBox',
-    loadingText = 'loadingText'
-}
+import { useModalConfirm } from '@store/modal/modalConfirm'
+import { useModalLoading } from '@store/modal/modalLoading'
 
 const Metadata = () => {
     const [isOpenModal, OpenModal, CloseModal, viewModal] = useToggleModal(false)
+    const { open: openModalMeta } = useModalConfirm()
+    const { open: openModalLoading, close: closeModalLoading } = useModalLoading()
     const handleGenerateMetadata = () => {
-        OpenModal(VIEWS_MODAL.messageBox)
+        openModalMeta({ title: 'Atención', message: '¿Desea generar metadata?', buttonTitle: 'fa', onConfirm: ConfirmHandle })
     }
 
     const ConfirmHandle = () => {
-        OpenModal(VIEWS_MODAL.loadingText)
+        openModalLoading({ message: 'Proceso iniciado......' })
     }
 
     return (
@@ -77,13 +75,6 @@ const Metadata = () => {
                         </div>
                     </div>
                 </div>
-                <Modal isOpen={viewModal === VIEWS_MODAL.messageBox && isOpenModal} onClose={CloseModal}>
-                    <Confirm title='Atención' onConfirm={ConfirmHandle} message='¿Desea generar metadata?' onCancel={CloseModal} />
-                </Modal>
-                <Modal isOpen={viewModal === VIEWS_MODAL.loadingText && isOpenModal} onClose={CloseModal}>
-                    <LoadingSpin className='animate-spin h-10 w-10 text-op-blue-1' />
-                    <p className='text-white leading-normal text-6xl'>Proceso iniciado......</p>
-                </Modal>
             </section>
         </LayoutPage>
     )

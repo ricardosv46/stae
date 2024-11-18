@@ -1,5 +1,5 @@
 import { useAuth } from '@store/auth'
-import { useModalError } from '@store/modal/modalError'
+import { useModalConfirm } from '@store/modal/modalConfirm'
 import { useRouter } from 'next/router'
 import { ReactNode, useEffect } from 'react'
 import { Confirm, Modal, NavbarPage, Spinner } from '..'
@@ -13,7 +13,7 @@ interface LayoutProps {
 
 const LayoutPageLogin = ({ children, section, college, color }: LayoutProps) => {
     const { user, isAuth, isLoading, refreshAuth } = useAuth()
-    const { isOpen: isModalError, close: closeModalError, ...modalErrorProps } = useModalError()
+    const { isOpen: isModalError, close: closeModalError, ...modalErrorProps } = useModalConfirm()
     const router = useRouter()
 
     useEffect(() => {
