@@ -43,7 +43,7 @@ export const menuList: ISidebarMenu[] = [
             {
                 title: 'Puesta a cero',
                 icon: '/assets/icons/ico_menu_clase.svg',
-                url: '',
+                url: '/gestion/puesta-cero',
                 params: { typeClass: '1' }
             },
             {

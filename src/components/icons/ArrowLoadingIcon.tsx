@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { SVGProps } from 'react'
-export const ActaEscrutinioIcon = (props: SVGProps<SVGSVGElement>) => (
+export const ArrowLoadingIcon = (props: SVGProps<SVGSVGElement>) => (
     <svg width={48} height={48} viewBox='0 0 48 48' fill='none' xmlns='http://www.w3.org/2000/svg' {...props}>
         <g clip-path='url(#clip0_6402_3248)'>
             <path

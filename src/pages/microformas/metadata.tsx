@@ -1,7 +1,7 @@
 import { LayoutPage } from '@components/common'
 import { useToggleModal } from '@components/hooks'
 import { ActaEntregaUsoIcon } from '@components/icons/ActaEntregaUsoIcon'
-import { ActaEscrutinioIcon } from '@components/icons/ActaEscrutinioIcon'
+import { ArrowLoadingIcon } from '@components/icons/ArrowLoadingIcon'
 import { ConvenioErepIcon } from '@components/icons/ConvenioErepIcon'
 import { GenerarMetadataIcon } from '@components/icons/GenerarMetadataIcon'
 import { ReportePuestaCeroIcon } from '@components/icons/ReportePuestaCeroIcon'
@@ -22,7 +22,7 @@ const Metadata = () => {
 
     return (
         <LayoutPage operator='OPERADORADM' section='Metadata'>
-            <section className='mt-4 mx-auto p-6 bg-white rounded-md shadow-sm'>
+            <section className=' mx-auto p-6 pt-0 bg-white rounded-md shadow-sm'>
                 <p className='text-center text-gray-700 mb-4'>
                     Para iniciar los procedimientos debe generar la metadata presionando el botón:
                 </p>
@@ -41,7 +41,7 @@ const Metadata = () => {
                 <div className='grid grid-cols-1 gap-4 md:grid-cols-1'>
                     <div className='flex flex-col lg:flex-row justify-center items-center gap-[0px] pb-5'>
                         <div className='bg-gray-700 w-24 h-24 float-left p-6'>
-                            <ActaEscrutinioIcon />
+                            <ArrowLoadingIcon />
                         </div>
                         <div className='w-[350px] display-inline cursor-pointer'>
                             <p className='text-white text-center font-bold p-9 bg-gray-light'>Actas de escrutinio</p>

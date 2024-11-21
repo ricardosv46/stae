@@ -24,7 +24,7 @@ const NavbarPageLogged = (session: any, titleParam = '') => {
 
     return (
         <>
-            <header className={`flex items-center justify-between w-full h-16 bg-white ${isOpen ? 'pl-72' : 'pl-32'} md:pr-8`}>
+            <header className={`flex items-center justify-between w-full h-16 bg-white px-4 md:pr-8`}>
                 <div className='flex items-center space-x-4'>
                     <div className='text-2xl cursor-pointer' onClick={toggle}>
                         <Sandwich />

@@ -28,7 +28,6 @@ const LayoutPage = ({ children, section, college, color, operator, backPath }: L
     const { user, isAuth, isLoading, refreshAuth, logoutAction, modalLogoutAction, modalLogout } = useAuth()
     const { isOpen } = useSidebar()
     const router = useRouter()
-    const [loadApp, setLoadApp] = useState(true)
 
     useEffect(() => {
         refreshAuth()
@@ -73,78 +72,43 @@ const LayoutPage = ({ children, section, college, color, operator, backPath }: L
     }, [isLoading, isAuth])
 
     useEffect(() => {
-        validateRole()
+        // validateRole()
         window.document.title = 'VENP - ' + section
     }, [])
 
-    const validateRole = () => {
-        const url = localStorage.getItem('operator_url')
+    // const validateRole = () => {
+    //     const url = localStorage.getItem('operator_url')
 
-        if (user?.idUsuario === operator) {
-            if (validateChangeURLForList(url, router.asPath)) {
-                return
-            }
-            localStorage.setItem('operator_url', router?.asPath)
-            setLoadApp(false)
-            return
-        }
+    //     if (user?.idUsuario === operator) {
+    //         if (validateChangeURLForList(url, router.asPath)) {
+    //             return
+    //         }
+    //         localStorage.setItem('operator_url', router?.asPath)
+    //         setLoadApp(false)
+    //         return
+    //     }
 
-        if (operator === '' && router.pathname === '/') {
-            setLoadApp(false)
-            return
-        }
+    //     if (operator === '' && router.pathname === '/') {
+    //         setLoadApp(false)
+    //         return
+    //     }
 
-        if (user?.idUsuario !== operator && user?.idUsuario === 'OPERADORADM' && operator !== '') {
-            router.push(url ?? '/')
-        }
-        if (user?.idUsuario !== operator && user?.idUsuario === 'OPERADORCED' && operator !== '') {
-            router.push(url ?? '/')
-        }
-        if (user?.idUsuario !== operator && user?.idUsuario === 'OPERADORCRE' && operator !== '') {
-            router.push(url ?? '/')
-        }
-        if (user?.idUsuario !== operator && user?.idUsuario === 'OPERADORJOR' && operator !== '') {
-            router.push(url ?? '/')
-        }
-        if (user?.idUsuario !== operator && user?.idUsuario === 'OPERADORPAD' && operator !== '') {
-            router.push(url ?? '/')
-        }
-    }
-
-    const validateChangeURLForList = (url: string | null, asPath: string): boolean => {
-        const editar_parametro =
-            asPath.includes('/admin/instituciones/editar-parametro') &&
-            url !== null &&
-            url.includes('/admin/instituciones/editar-parametro')
-
-        const editar = asPath.includes('/admin/instituciones/editar') && url !== null && url.includes('/admin/instituciones/editar')
-
-        const generar_usuarios =
-            asPath.includes('/admin/instituciones/generar-usuarios') &&
-            url !== null &&
-            url.includes('/admin/instituciones/generar-usuarios')
-
-        const parametro =
-            asPath.includes('/admin/instituciones/parametro') && url !== null && url.includes('/admin/instituciones/parametro')
-
-        const crear_proceso = asPath.includes('/admin/crear-proceso') && url !== null && url.includes('/admin/crear-proceso')
-
-        const editar_proceso = asPath.includes('/admin/editar-proceso') && url !== null && url.includes('/admin/editar-proceso')
-
-        const informacion_proceso =
-            asPath.includes('/admin/informacion-proceso') && url !== null && url.includes('/admin/informacion-proceso')
-
-        if (editar_parametro || editar || generar_usuarios || parametro || crear_proceso || editar_proceso || informacion_proceso) {
-            if (url !== asPath) {
-                localStorage.setItem('operator_url', url)
-                setLoadApp(false)
-                router.push(url ?? '/')
-                return true
-            }
-        }
-
-        return false
-    }
+    //     if (user?.idUsuario !== operator && user?.idUsuario === 'OPERADORADM' && operator !== '') {
+    //         router.push(url ?? '/')
+    //     }
+    //     if (user?.idUsuario !== operator && user?.idUsuario === 'OPERADORCED' && operator !== '') {
+    //         router.push(url ?? '/')
+    //     }
+    //     if (user?.idUsuario !== operator && user?.idUsuario === 'OPERADORCRE' && operator !== '') {
+    //         router.push(url ?? '/')
+    //     }
+    //     if (user?.idUsuario !== operator && user?.idUsuario === 'OPERADORJOR' && operator !== '') {
+    //         router.push(url ?? '/')
+    //     }
+    //     if (user?.idUsuario !== operator && user?.idUsuario === 'OPERADORPAD' && operator !== '') {
+    //         router.push(url ?? '/')
+    //     }
+    // }
 
     if (isLoading || !isAuth || !user) return <Spinner absolute />
 
@@ -171,40 +135,39 @@ const LayoutPage = ({ children, section, college, color, operator, backPath }: L
     return (
         <>
             {user.idUsuario && isAuth && (
-                <>
-                    <NavbarPage session={user} />
+                <div className='w-screen h-screen flex overflow-hidden'>
                     <Sidebar />
 
-                    {section && (
-                        <div className={`relative bg-blue w-full ${isOpen ? 'pl-72' : 'pl-32'} py-4`}>
-                            <h2 className={`${color ? color : 'text-white'} font-bold text-lg`}>{section}</h2>
-                            <div className='mt-2 text-white'>{generateBreadcrumb()}</div>
-                        </div>
-                    )}
+                    <div className='w-full flex-1 flex flex-col'>
+                        <NavbarPage session={user} />
 
-                    {!loadApp ? (
-                        <main className={`px-4 min-height pb-16 app-container ${isOpen ? 'pl-72' : 'pl-32'} `}>{children}</main>
-                    ) : (
-                        <div>Cargando</div>
-                    )}
-                    <Modal top closeDisabled isOpen={isModalError} onClose={closeModalError}>
-                        <Confirm {...modalErrorProps} />
-                    </Modal>
+                        {section && (
+                            <div className='relative bg-blue w-full px-4 py-4'>
+                                <h2 className={`${color ? color : 'text-white'} font-bold text-lg`}>{section}</h2>
+                                <div className='mt-2 text-white'>{generateBreadcrumb()}</div>
+                            </div>
+                        )}
 
-                    <Modal top closeDisabled={closeDisabled} isOpen={isModalLoading} onClose={closeModalLoading}>
-                        <Loading {...modalLoadingProps} />
-                    </Modal>
-                    <Modal top closeDisabled isOpen={modalLogout} onClose={() => modalLogoutAction(false)}>
-                        <Confirm
-                            error
-                            title='Error'
-                            onConfirm={logoutAction}
-                            message='Su sesión ha finalizado'
-                            onCancel={() => modalLogoutAction(false)}
-                        />
-                    </Modal>
-                </>
+                        <main className='flex-1 px-4 pt-[68px] pb-16 relative overflow-y-auto'>{children}</main>
+                    </div>
+                </div>
             )}
+            <Modal top closeDisabled isOpen={isModalError} onClose={closeModalError}>
+                <Confirm {...modalErrorProps} />
+            </Modal>
+
+            <Modal top closeDisabled={closeDisabled} isOpen={isModalLoading} onClose={closeModalLoading}>
+                <Loading {...modalLoadingProps} />
+            </Modal>
+            <Modal top closeDisabled isOpen={modalLogout} onClose={() => modalLogoutAction(false)}>
+                <Confirm
+                    error
+                    title='Error'
+                    onConfirm={logoutAction}
+                    message='Su sesión ha finalizado'
+                    onCancel={() => modalLogoutAction(false)}
+                />
+            </Modal>
         </>
     )
 }

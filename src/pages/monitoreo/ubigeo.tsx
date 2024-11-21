@@ -67,7 +67,7 @@ const Ubigeo = () => {
 
     return (
         <LayoutPage operator='OPERADORADM' section='Monitoreo de transmisión por ubigeo'>
-            <section className='mt-4'>
+            <section className=''>
                 <div className='grid grid-cols-1 md:grid-cols-3 gap-6 mb-5'>
                     <div className='flex items-center space-x-2'>
                         <label className='text-gray-700 text-sm font-medium'>ODPE:</label>

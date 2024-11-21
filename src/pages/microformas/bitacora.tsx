@@ -1,21 +1,19 @@
-import { LayoutPage } from "@components/common"
-import { ActaEntregaUsoIcon } from "@components/icons/ActaEntregaUsoIcon"
-import { ActaEscrutinioIcon } from "@components/icons/ActaEscrutinioIcon"
-import { ConvenioErepIcon } from "@components/icons/ConvenioErepIcon"
-import { ReportePuestaCeroIcon } from "@components/icons/ReportePuestaCeroIcon"
+import { LayoutPage } from '@components/common'
+import { ActaEntregaUsoIcon } from '@components/icons/ActaEntregaUsoIcon'
+import { ArrowLoadingIcon } from '@components/icons/ArrowLoadingIcon'
+import { ConvenioErepIcon } from '@components/icons/ConvenioErepIcon'
+import { ReportePuestaCeroIcon } from '@components/icons/ReportePuestaCeroIcon'
 
 const Bitacora = () => {
     return (
         <LayoutPage operator='OPERADORADM' section='Logs de Bitácora'>
-            <section className='mt-4 mx-auto p-6 bg-white rounded-md shadow-sm'>
-                <p className='text-center text-gray-700 mb-4'>
-                    Haga clic en cada botón para generar los logs
-                </p>
+            <section className=' mx-auto p-6 pt-0 bg-white rounded-md shadow-sm'>
+                <p className='text-center text-gray-700 mb-4'>Haga clic en cada botón para generar los logs</p>
 
                 <div className='grid grid-cols-1 gap-4 md:grid-cols-1'>
                     <div className='flex flex-col lg:flex-row justify-center items-center gap-[0px] pb-5'>
                         <div className='bg-blue w-24 h-24 float-left p-6'>
-                            <ActaEscrutinioIcon />
+                            <ArrowLoadingIcon />
                         </div>
                         <div className='w-[350px] display-inline cursor-pointer'>
                             <p className='text-white text-center font-bold p-9 bg-[#0073cf]'>Actas de escrutinio</p>

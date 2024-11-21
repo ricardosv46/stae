@@ -15,6 +15,7 @@ const config: Config = {
                 skyblue: '#0073cf',
                 yellow: '#FFB81C',
                 green: '#76BD43',
+                'green-light': '#7EC04E',
                 'light-skyblue': '#AAEFF6',
                 gray: '#BCBCBC',
                 'gray-700': 'rgb(107 114 128)',

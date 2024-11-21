@@ -7,7 +7,7 @@ const Mesa = () => {
 
     return (
         <LayoutPage operator='OPERADORADM' section='Monitoreo de transmisión por mesa'>
-            <section className='mt-4 mx-auto p-6 bg-white rounded-md shadow-sm'>
+            <section className=' mx-auto p-6 pt-0 bg-white rounded-md shadow-sm'>
                 <h2 className='text-xl font-bold text-blue mb-4'>CONSULTA POR MESA DE SUFRAGIO</h2>
 
                 <div className='flex items-center gap-2 mb-6'>
@@ -144,9 +144,15 @@ const Mesa = () => {
                     </div>
                 </div>
 
-                <div className="mt-4 text-sm text-gray-600 lg:col-span-1 lg:w-1/3">
-                    <p>(*) Se genera “1 Convenio EREP” por cada miembro de mesa y por cada personero registrado en mesa y se transmitirá en la primera elección procesada en la mesa de sufragio.</p>
-                    <p>(**) Se genera “1 Acta de Entrega y uso de Certificados Digitales” por mesa y se transmitirá con la última elección procesada en la mesa de sufragio.</p>
+                <div className='mt-4 text-sm text-gray-600 lg:col-span-1 lg:w-1/3'>
+                    <p>
+                        (*) Se genera “1 Convenio EREP” por cada miembro de mesa y por cada personero registrado en mesa y se transmitirá en
+                        la primera elección procesada en la mesa de sufragio.
+                    </p>
+                    <p>
+                        (**) Se genera “1 Acta de Entrega y uso de Certificados Digitales” por mesa y se transmitirá con la última elección
+                        procesada en la mesa de sufragio.
+                    </p>
                 </div>
             </section>
         </LayoutPage>
