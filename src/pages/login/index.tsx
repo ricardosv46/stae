@@ -1,12 +1,12 @@
 import { Button, Input, LayoutPageLogin, NavbarBrowser } from '@components/common'
 import { OnpeIcon, PasswordIcon, ReloadIcon, UserIcon } from '@components/icons'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { getCaptcha } from '@services/auth'
 import { useAuth } from '@store/auth'
 import { useEffect } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { useModalConfirm } from '../../store/modal/modalConfirm'
+import api from '@utils/services/api'
 
 const validationSchema = yup.object().shape({
     username: yup.string().required('El usuario es requerido'),
@@ -51,7 +51,7 @@ const Login = () => {
     const reloadCaptcha = async () => {
         try {
             setValue('captcha', '')
-            const data = await getCaptcha()
+            const data = await api.getCaptcha()
             let img = new Image()
             if (data) {
                 img.src = URL.createObjectURL(data)
