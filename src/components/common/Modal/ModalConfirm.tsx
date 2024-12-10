@@ -2,6 +2,7 @@ import { ConfirmIcon, WarningIcon } from '@components/icons'
 import { useModalConfirm } from '@store/modal/modalConfirm'
 import { Button } from '../Button/Button'
 import { Modal } from './Modal'
+import { useModalLoading } from '@store/modal/modalLoading'
 
 const ModalConfirm = () => {
     const {
@@ -21,6 +22,8 @@ const ModalConfirm = () => {
 
     const { close } = useModalConfirm()
 
+    const { isOpen: isOpenModalLoading } = useModalLoading()
+
     const handleCancel = () => {
         if (onCancel) {
             onCancel()
@@ -32,6 +35,8 @@ const ModalConfirm = () => {
         onConfirm()
         close()
     }
+
+    if (isOpenModalLoading) return <></>
 
     return (
         <Modal top closeDisabled={closeDisabled} isOpen={isModalError} onClose={closeModalError}>

@@ -8,7 +8,7 @@ const ModalLoading = () => {
     return (
         <Modal top closeDisabled={closeDisabled} isOpen={isModalLoading} onClose={closeModalLoading}>
             <LoadingSpin className='animate-spin h-10 w-10 text-op-blue-1' />
-            <p className='text-white leading-normal text-6xl'>{message}</p>
+            <p className='text-white leading-normal text-6xl' dangerouslySetInnerHTML={{ __html: message }} />
         </Modal>
     )
 }

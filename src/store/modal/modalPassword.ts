@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 
 interface OpenProps {
-    onConfirm?: (password: string) => void
+    onConfirm?: (password: string) => Promise<boolean>
     buttonTitle?: string
     title?: string
     closeDisabled?: boolean
@@ -10,7 +10,7 @@ interface OpenProps {
 
 interface ModalPasswordStore {
     isOpen: boolean
-    onConfirm: (password: string) => void
+    onConfirm: (password: string) => Promise<boolean>
     buttonTitle: string
     title: string
     closeDisabled: boolean
@@ -23,7 +23,7 @@ interface ModalPasswordStore {
 
 export const useModalPassword = create<ModalPasswordStore>((set) => ({
     isOpen: false,
-    onConfirm: () => {},
+    onConfirm: async () => false,
     buttonTitle: 'Registrar',
     title: 'Confirmar',
     closeDisabled: false,
@@ -39,7 +39,7 @@ export const useModalPassword = create<ModalPasswordStore>((set) => ({
     close: () => {
         set({
             isOpen: false,
-            onConfirm: () => {},
+            onConfirm: async () => false,
             buttonTitle: 'Registrar',
             title: 'Confirmar',
             closeDisabled: false,

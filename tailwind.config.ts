@@ -17,6 +17,7 @@ const config: Config = {
                 green: '#76BD43',
                 'green-light': '#7EC04E',
                 'light-skyblue': '#AAEFF6',
+                'extra-light-skyblue': '#d9ecf9',
                 gray: '#BCBCBC',
                 'gray-700': 'rgb(107 114 128)',
                 'gray-light': '#BDBDBD',

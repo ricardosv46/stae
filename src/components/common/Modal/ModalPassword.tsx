@@ -4,18 +4,23 @@ import { Button } from '../Button/Button'
 import { Input } from '../Input/Input'
 import { Modal } from './Modal'
 import { useState } from 'react'
+import { useModalLoading } from '@store/modal/modalLoading'
 
 export const ModalPassword = () => {
     const { isOpen, close, onConfirm, title, buttonTitle, message, password, setPassword } = useModalPassword()
+    const { isOpen: isOpenModalLoading } = useModalLoading()
 
-    const handleConfirm = () => {
-        onConfirm(password)
-        close()
+    const handleConfirm = async () => {
+        const success = await onConfirm(password)
+
+        if (success) close()
     }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value)
     }
+
+    if (isOpenModalLoading) return <></>
     return (
         <Modal top closeDisabled isOpen={isOpen} onClose={close}>
             <div className='bg-white w-[700px]  flex-col flex items-center p-[50px] relative'>

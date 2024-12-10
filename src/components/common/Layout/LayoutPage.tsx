@@ -8,6 +8,7 @@ import { ReactNode, useEffect } from 'react'
 import { ModalConfirm, ModalLoading, ModalPassword, NavbarPage, Spinner } from '..'
 import Sidebar from '../Sidebar/Sidebar'
 import { useSidebar } from '../Sidebar/SidebarContext'
+import { useModalLoading } from '@store/modal/modalLoading'
 
 interface LayoutProps {
     children: ReactNode
@@ -145,16 +146,14 @@ const LayoutPage = ({ children, section, college, color, operator, backPath }: L
                             </div>
                         )}
 
-                        <main className='flex-1 px-4 pt-[68px] pb-16 relative overflow-y-auto'>{children}</main>
+                        <main className='flex-1 px-4 pt-[64px] pb-16 relative overflow-y-auto'>{children}</main>
                     </div>
                 </div>
             )}
 
-            <ModalConfirm />
-
-            <ModalLoading />
-
             <ModalPassword />
+            <ModalConfirm />
+            <ModalLoading />
             {/* <Modal top closeDisabled isOpen={modalLogout} onClose={() => modalLogoutAction(false)}>
                 <Confirm
                     error

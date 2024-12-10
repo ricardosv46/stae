@@ -2,7 +2,7 @@ import * as React from 'react'
 import { SVGProps } from 'react'
 export const ArrowLoadingIcon = (props: SVGProps<SVGSVGElement>) => (
     <svg width={48} height={48} viewBox='0 0 48 48' fill='none' xmlns='http://www.w3.org/2000/svg' {...props}>
-        <g clip-path='url(#clip0_6402_3248)'>
+        <g clipPath='url(#clip0_6402_3248)'>
             <path
                 d='M35.3137 12.694C32.2917 9.672 28.2738 8.00781 24 8.00781C21.4239 8.00781 18.8632 8.63488 16.5947 9.82131C15.2866 10.5054 14.0744 11.3763 13 12.3934V8.00781H10.5V16.7578H19.25V14.2578H14.6664C17.1593 11.8781 20.5046 10.5078 24 10.5078C31.4439 10.5078 37.5 16.5638 37.5 24.0077C37.4999 24.4222 37.481 24.8401 37.4437 25.2496L39.9334 25.4764C39.9776 24.9918 39.9999 24.4978 40 24.0079L38.75 24.0078H40C40 19.734 38.3357 15.7161 35.3137 12.694Z'
                 fill='white'
