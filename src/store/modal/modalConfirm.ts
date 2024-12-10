@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-
+import { ReactNode } from 'react'
 interface OpenProps {
     message: string
     onConfirm?: () => void
@@ -9,6 +9,9 @@ interface OpenProps {
     title?: string
     error?: boolean
     warnIcon?: boolean
+    onlybutton?: boolean
+    closeDisabled?: boolean
+    children?: ReactNode
 }
 
 interface ModalConfirmStore {
@@ -23,30 +26,29 @@ interface ModalConfirmStore {
     warnIcon: boolean
     open: (props: OpenProps) => void
     close: () => void
+    onlybutton?: boolean
+    closeDisabled?: boolean
+    children?: ReactNode
 }
 
 export const useModalConfirm = create<ModalConfirmStore>((set) => ({
     isOpen: false,
+    closeDisabled: false,
     message: '',
     onConfirm: () => {},
     onCancel: () => {},
     buttonTitle: 'Aceptar',
     onlyButton: false,
-    title: 'Error',
+    title: 'Confirmación',
     error: true,
     warnIcon: false,
-    open: ({ message, onConfirm, onCancel, buttonTitle, onlyButton, title, error, warnIcon }) => {
+    onlybutton: false,
+    children: undefined,
+    open: (props) => {
         close()
         set({
             isOpen: true,
-            message,
-            onConfirm,
-            onCancel,
-            buttonTitle,
-            onlyButton,
-            title,
-            error,
-            warnIcon
+            ...props
         })
     },
     close: () => {
@@ -59,7 +61,10 @@ export const useModalConfirm = create<ModalConfirmStore>((set) => ({
             onlyButton: false,
             title: 'Error',
             error: true,
-            warnIcon: false
+            warnIcon: false,
+            onlybutton: false,
+            children: undefined,
+            closeDisabled: false
         })
     }
 }))

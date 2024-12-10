@@ -17,12 +17,11 @@ export const useModalLoading = create<ModalLoadingStore>((set) => ({
     isOpen: false,
     message: '',
     closeDisabled: false,
-    open: ({ message, closeDisabled }) => {
+    open: (props) => {
         close()
         set({
             isOpen: true,
-            message,
-            closeDisabled
+            ...props
         })
     },
     close: () => {

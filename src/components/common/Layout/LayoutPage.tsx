@@ -4,12 +4,10 @@ import apiService from '@utils/axios/configAxios'
 import axios from 'axios'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { ReactNode, useEffect, useState } from 'react'
-import { Confirm, Modal, NavbarPage, Spinner } from '..'
+import { ReactNode, useEffect } from 'react'
+import { ModalConfirm, ModalLoading, ModalPassword, NavbarPage, Spinner } from '..'
 import Sidebar from '../Sidebar/Sidebar'
 import { useSidebar } from '../Sidebar/SidebarContext'
-import { Loading } from '../Modal/Loading'
-import { useModalLoading } from '@store/modal/modalLoading'
 
 interface LayoutProps {
     children: ReactNode
@@ -21,11 +19,9 @@ interface LayoutProps {
 }
 
 const LayoutPage = ({ children, section, college, color, operator, backPath }: LayoutProps) => {
-    const { isOpen: isModalError, close: closeModalError, ...modalErrorProps } = useModalConfirm()
+    const { open: openModalConfirm } = useModalConfirm()
 
-    const { isOpen: isModalLoading, close: closeModalLoading, closeDisabled, ...modalLoadingProps } = useModalLoading()
-
-    const { user, isAuth, isLoading, refreshAuth, logoutAction, modalLogoutAction, modalLogout } = useAuth()
+    const { user, isAuth, isLoading, refreshAuth, logoutAction, modalLogoutAction } = useAuth()
     const { isOpen } = useSidebar()
     const router = useRouter()
 
@@ -37,7 +33,7 @@ const LayoutPage = ({ children, section, college, color, operator, backPath }: L
         const responseInterceptor = apiService.interceptors.response.use(
             (response) => {
                 if (response?.data?.status === 443) {
-                    modalLogoutAction(true)
+                    openModalConfirm({ error: true, title: 'Error', message: 'Su sesión ha finalizado', onConfirm: logoutAction })
                     return Promise.reject({ ...response, hidden: true })
                 } else {
                     return response
@@ -48,7 +44,8 @@ const LayoutPage = ({ children, section, college, color, operator, backPath }: L
                     error.message = 'No se pudo acceder al servicio. Verifique su conexión a internet'
                     return Promise.reject(error)
                 } else if (error?.data?.status === 443) {
-                    modalLogoutAction(true)
+                    openModalConfirm({ error: true, title: 'Error', message: 'Su sesión ha finalizado', onConfirm: logoutAction })
+
                     return Promise.reject({ ...error, hidden: true })
                 } else if (error?.response?.status === 403) {
                     return Promise.reject({ ...error, hidden: true })
@@ -152,14 +149,13 @@ const LayoutPage = ({ children, section, college, color, operator, backPath }: L
                     </div>
                 </div>
             )}
-            <Modal top closeDisabled isOpen={isModalError} onClose={closeModalError}>
-                <Confirm {...modalErrorProps} />
-            </Modal>
 
-            <Modal top closeDisabled={closeDisabled} isOpen={isModalLoading} onClose={closeModalLoading}>
-                <Loading {...modalLoadingProps} />
-            </Modal>
-            <Modal top closeDisabled isOpen={modalLogout} onClose={() => modalLogoutAction(false)}>
+            <ModalConfirm />
+
+            <ModalLoading />
+
+            <ModalPassword />
+            {/* <Modal top closeDisabled isOpen={modalLogout} onClose={() => modalLogoutAction(false)}>
                 <Confirm
                     error
                     title='Error'
@@ -167,7 +163,7 @@ const LayoutPage = ({ children, section, college, color, operator, backPath }: L
                     message='Su sesión ha finalizado'
                     onCancel={() => modalLogoutAction(false)}
                 />
-            </Modal>
+            </Modal> */}
         </>
     )
 }

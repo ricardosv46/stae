@@ -2,7 +2,7 @@ import { useAuth } from '@store/auth'
 import { useModalConfirm } from '@store/modal/modalConfirm'
 import { useRouter } from 'next/router'
 import { ReactNode, useEffect } from 'react'
-import { Confirm, Modal, NavbarPage, Spinner } from '..'
+import { ModalConfirm, NavbarPage, Spinner } from '..'
 interface LayoutProps {
     children: ReactNode
     section?: string
@@ -48,9 +48,7 @@ const LayoutPageLogin = ({ children, section, college, color }: LayoutProps) => 
                 </>
             )}
 
-            <Modal top closeDisabled isOpen={isModalError} onClose={closeModalError}>
-                <Confirm {...modalErrorProps} />
-            </Modal>
+            <ModalConfirm />
         </>
     )
 }
