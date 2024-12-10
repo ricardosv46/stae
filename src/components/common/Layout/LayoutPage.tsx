@@ -1,6 +1,6 @@
 import { useAuth } from '@store/auth'
 import { useModalConfirm } from '@store/modal/modalConfirm'
-import apiService from '@utils/axios/configAxios'
+import apiService from '@utils/services/axios/configAxios'
 import axios from 'axios'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
