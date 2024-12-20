@@ -4,7 +4,7 @@ import { ButtonIcon } from '@components/common/Button/ButtonIcon'
 import { ChipGreenText } from '@components/common/Chip/ChipGreenText'
 import { PaginatorNumbers, PaginatorSelectPerPage } from '@components/common/Paginator/PaginatorNumbers'
 import { useToggle } from '@components/hooks'
-import { SearchIcon, UserAddIcon } from '@components/icons'
+import { SearchIcon, AddUserIcon } from '@components/icons'
 import { ModalNewUser } from '@modules/gestion/components/ModalNewUser'
 import { columnsUser, IUser } from '@modules/gestion/table/columnsUser'
 import { useModalConfirm } from '@store/modal/modalConfirm'
@@ -140,7 +140,7 @@ const Usuarios = () => {
             <ModalNewUser isOpen={isModalNewUser} onClose={closeModalNewUser} onCreate={onCreate} />
             <ChipGreenText text='Se realizó el cambio' status={isNotify} />
             <section className='w-full flex justify-center items-center  relative text-white'>
-                <BigButtonIcon onClick={openModalNewUser} icon={UserAddIcon} title='Nuevo usuario' />
+                <BigButtonIcon onClick={openModalNewUser} icon={AddUserIcon} title='Nuevo usuario' />
             </section>
 
             <section className='w-full mt-5'>

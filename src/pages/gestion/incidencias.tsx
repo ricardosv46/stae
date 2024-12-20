@@ -5,7 +5,7 @@ import { ChipGreenText } from '@components/common/Chip/ChipGreenText'
 import { PaginatorNumbers, PaginatorSelectPerPage } from '@components/common/Paginator/PaginatorNumbers'
 import { useToggle } from '@components/hooks'
 import { SearchIcon } from '@components/icons'
-import { AddIncidencias } from '@components/icons/AddIncidencias'
+import { AddIncidenciasIcon } from '@components/icons/AddIncidenciasIcon'
 import { ModalNewIncident } from '@modules/gestion/components/ModalNewIncident'
 import { columnsIncident, IIncident } from '@modules/gestion/table/columnsIncident'
 import { useModalConfirm } from '@store/modal/modalConfirm'
@@ -121,7 +121,7 @@ const Incidencias = () => {
             <ModalNewIncident isOpen={isModalNewUser} onClose={closeModalNewUser} onCreate={onCreate} />
             <ChipGreenText text='Se realizó el cambio' status={isNotify} />
             <section className='w-full flex justify-center items-center  relative text-white'>
-                <BigButtonIcon onClick={openModalNewUser} icon={AddIncidencias} title='Nueva incidencia' />
+                <BigButtonIcon onClick={openModalNewUser} icon={AddIncidenciasIcon} title='Nueva incidencia' />
             </section>
 
             <section className='w-full mt-5'>

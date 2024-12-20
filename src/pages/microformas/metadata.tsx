@@ -4,7 +4,7 @@ import { ActaEntregaUsoIcon } from '@components/icons/ActaEntregaUsoIcon'
 import { ArrowLoadingIcon } from '@components/icons/ArrowLoadingIcon'
 import { ConvenioErepIcon } from '@components/icons/ConvenioErepIcon'
 import { GenerarMetadataIcon } from '@components/icons/GenerarMetadataIcon'
-import { ReportePuestaCeroIcon } from '@components/icons/ReportePuestaCeroIcon'
+import { ReporteCheckIcon } from '@components/icons/ReportePuestaCeroIcon'
 import { useModalConfirm } from '@store/modal/modalConfirm'
 import { useModalLoading } from '@store/modal/modalLoading'
 
@@ -69,7 +69,7 @@ const Metadata = () => {
 
                     <div className='flex flex-col lg:flex-row justify-center items-center gap-[0px] pb-5'>
                         <div className='bg-gray-700 w-24 h-24 float-left p-6'>
-                            <ReportePuestaCeroIcon />
+                            <ReporteCheckIcon />
                         </div>
                         <div className='w-[350px] display-inline cursor-pointer'>
                             <p className='text-white text-center font-bold p-9 bg-gray-light'>Reporte de puesta cero</p>

@@ -36,6 +36,7 @@ const history = [
 
 import { createColumnHelper, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table'
 import { AddIcon } from '@components/icons'
+import { useToggle } from '@components/hooks'
 
 const columnHelper = createColumnHelper<Ihistory>()
 
@@ -61,7 +62,7 @@ export const columnsHistory = () => [
 
 const PuestaCero = () => {
     const [data, setData] = useState(false) //TODO: add tanstack query
-    const [notify, setNotify] = useState(false)
+    const [isNotify, openNotify, closeNotify] = useToggle()
     const { open: openPassword, setPassword, password } = useModalPassword()
     const { open: openLoading, close: closeLoading } = useModalLoading()
     const handlePuestaCero = () => {
@@ -75,10 +76,10 @@ const PuestaCero = () => {
                 await delay(2000)
                 closeLoading()
 
-                setNotify(true)
+                openNotify()
 
                 setData(true)
-                setTimeout(() => setNotify(false), 2000)
+                setTimeout(closeNotify, 2000)
 
                 const success = true
 
@@ -96,7 +97,7 @@ const PuestaCero = () => {
 
     return (
         <LayoutPage operator='OPERADORADM' section='Puesta a Cero'>
-            <ChipGreenText text='Se realizó el cambio' status={notify} />
+            <ChipGreenText text='Se realizó el cambio' status={isNotify} />
 
             <section className='w-full flex justify-center items-center  relative text-white'>
                 <BigButtonIcon onClick={handlePuestaCero} icon={ArrowLoadingIcon} title='Ejecutar Puesta a cero' />
