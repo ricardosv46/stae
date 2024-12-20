@@ -10,13 +10,13 @@ const ModalConfirm = () => {
         close: closeModalError,
         onCancel,
         onConfirm,
-        warnIcon,
-        error,
+        icon,
         onlybutton,
         title,
         children,
         message,
         buttonTitle,
+        buttonTitleCancel,
         closeDisabled
     } = useModalConfirm()
 
@@ -41,21 +41,23 @@ const ModalConfirm = () => {
     return (
         <Modal top closeDisabled={closeDisabled} isOpen={isModalError} onClose={closeModalError}>
             <div className='bg-white w-[700px]  flex-col flex items-center p-[50px]'>
-                {warnIcon === true || (error && !onlybutton && title === 'Error') ? <WarningIcon /> : <ConfirmIcon />}
+                {icon === 'warning' && <WarningIcon className='text-skyblue' />}
+
+                {icon === 'success' && <ConfirmIcon className='text-skyblue' />}
+
                 <p className='font-medium text-2xl leading-normal tracking-[0.151px] text-skyblue mt-[8px]'>{title}</p>
                 {children && <div className='z-20 grid place-items-center'>{children}</div>}
                 <p className='text-lg mt-[20px] text-center' dangerouslySetInnerHTML={{ __html: message }} />
                 <div className='flex text-lg font-semibold text-white gap-6 justify-center mt-[58px]'>
-                    {!error && !onlybutton && (
+                    {!onlybutton && (
                         <>
-                            <Button color='blue' title='No' className='w-[200px]' onClick={handleCancel} />
+                            <Button color='blue' title={buttonTitleCancel!} className='w-[200px]' onClick={handleCancel} />
 
-                            <Button color='red' title='Sí' className='w-[200px]' onClick={handleConfirm} />
+                            <Button color='red' title={buttonTitle!} className='w-[200px]' onClick={handleConfirm} />
                         </>
                     )}
-                    {error && !onlybutton && <Button color='red' title={buttonTitle} className='w-[200px]' onClick={handleConfirm} />}
 
-                    {onlybutton && <Button color='red' title={buttonTitle} className='w-[200px]' onClick={handleConfirm} />}
+                    {onlybutton && <Button color='red' title={buttonTitle!} className='w-[200px]' onClick={handleConfirm} />}
                 </div>
             </div>
         </Modal>

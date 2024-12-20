@@ -40,9 +40,10 @@ const Metadata = () => {
 
                 <div className='grid grid-cols-1 gap-4 md:grid-cols-1'>
                     <div className='flex flex-col lg:flex-row justify-center items-center gap-[0px] pb-5'>
-                        <div className='bg-gray-700 w-24 h-24 float-left p-6'>
-                            <ArrowLoadingIcon />
+                        <div className='bg-gray-700 w-24 h-24 float-left p-6 text-white'>
+                            <ArrowLoadingIcon className='w-12 h-12' />
                         </div>
+
                         <div className='w-[350px] display-inline cursor-pointer'>
                             <p className='text-white text-center font-bold p-9 bg-gray-light'>Actas de escrutinio</p>
                         </div>

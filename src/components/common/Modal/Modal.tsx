@@ -33,7 +33,7 @@ const Modal = ({
                         }
                     }}
                 />
-                <div className='z-20 grid place-items-center'>{children}</div>
+                {isOpen && <div className='z-20 grid place-items-center'>{children}</div>}
             </div>
         </Portal>
     )

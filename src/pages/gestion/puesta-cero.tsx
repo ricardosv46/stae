@@ -6,6 +6,12 @@ import { useModalLoading } from '@store/modal/modalLoading'
 import { useModalPassword } from '@store/modal/modalPassword'
 import { delay } from '@utils/delay'
 import { useState } from 'react'
+interface Ihistory {
+    id: number
+    user: string
+    action: string
+    date: string
+}
 
 const history = [
     {
@@ -27,6 +33,32 @@ const history = [
         date: '21/09/2023 14:55:00:000000'
     }
 ]
+
+import { createColumnHelper, flexRender, getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table'
+import { AddIcon } from '@components/icons'
+
+const columnHelper = createColumnHelper<Ihistory>()
+
+export const columnsHistory = () => [
+    {
+        header: 'N°',
+        id: 'index',
+        cell: (info: any) => info.row.index + 1
+    },
+    columnHelper.accessor('user', {
+        header: 'Usuario',
+        cell: (info) => info.getValue()
+    }),
+    columnHelper.accessor('action', {
+        header: 'Acción',
+        cell: (info) => info.getValue()
+    }),
+    columnHelper.accessor('date', {
+        header: 'Fecha',
+        cell: (info) => info.getValue()
+    })
+]
+
 const PuestaCero = () => {
     const [data, setData] = useState(false) //TODO: add tanstack query
     const [notify, setNotify] = useState(false)
@@ -55,11 +87,18 @@ const PuestaCero = () => {
         })
     }
 
+    const { getHeaderGroups, getRowModel, setPageSize, getRowCount, getState, setPageIndex } = useReactTable({
+        data: history,
+        columns: columnsHistory(),
+        getCoreRowModel: getCoreRowModel(),
+        getPaginationRowModel: getPaginationRowModel()
+    })
+
     return (
         <LayoutPage operator='OPERADORADM' section='Puesta a Cero'>
             <ChipGreenText text='Se realizó el cambio' status={notify} />
 
-            <section className='w-full flex justify-center items-center  relative '>
+            <section className='w-full flex justify-center items-center  relative text-white'>
                 <BigButtonIcon onClick={handlePuestaCero} icon={ArrowLoadingIcon} title='Ejecutar Puesta a cero' />
             </section>
 
@@ -69,20 +108,24 @@ const PuestaCero = () => {
                 {data && (
                     <table className='min-w-full text-sm'>
                         <thead className=''>
-                            <tr>
-                                <th className='px-6 py-3.5 text-left  font-medium border-gray  border uppercase '>N°</th>
-                                <th className='px-6 py-3.5 text-left  font-medium  border-gray  border uppercase '>Usuario</th>
-                                <th className='px-6 py-3.5 text-left  font-medium  border-gray  border uppercase'>Acción</th>
-                                <th className='px-6 py-3.5 text-left  font-medium border-gray  border uppercase '>Fecha</th>
-                            </tr>
+                            {getHeaderGroups().map((headerGroup) => (
+                                <tr key={headerGroup.id}>
+                                    {headerGroup.headers.map((header) => (
+                                        <th className='px-6 py-3.5 text-left  font-medium border-gray  border uppercase ' key={header.id}>
+                                            {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                                        </th>
+                                    ))}
+                                </tr>
+                            ))}
                         </thead>
                         <tbody className=' '>
-                            {history.map((item, index) => (
-                                <tr key={item.id} className={index % 2 === 1 ? 'bg-extra-light-skyblue' : 'bg-white'}>
-                                    <td className='px-6 py-3.5 whitespace-nowrap  border-gray  border'>{item.id}</td>
-                                    <td className='px-6 py-3.5 whitespace-nowrap  border-gray  border'>{item.user}</td>
-                                    <td className='px-6 py-3.5 whitespace-nowrap  border-gray  border'>{item.action}</td>
-                                    <td className='px-6 py-3.5 whitespace-nowrap  border-gray  border'>{item.date}</td>
+                            {getRowModel().rows?.map((row, index) => (
+                                <tr key={row.id} className={index % 2 === 1 ? 'bg-extra-light-skyblue' : 'bg-white'}>
+                                    {row.getVisibleCells().map((cell) => (
+                                        <td key={cell.id} className='px-6 py-3.5 whitespace-nowrap  border-gray  border'>
+                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                        </td>
+                                    ))}
                                 </tr>
                             ))}
                         </tbody>

@@ -1,5 +1,5 @@
 import { ArrowDownIcon, ArrowDownIconSmall, LoadingSpin } from '@components/icons'
-import { useId, useState } from 'react'
+import { useId, useState, useEffect } from 'react'
 
 import Select, { ActionMeta, OptionsOrGroups } from 'react-select'
 
@@ -51,6 +51,7 @@ export default function SelectCustom<Value>({
 }: SelectProps<Value>) {
     const uid = useId()
     const [defaultValueX, setValue] = useState(value)
+
     const customStyles = {
         control: (provided: any) => ({
             ...provided,
@@ -71,9 +72,16 @@ export default function SelectCustom<Value>({
         optionChange({ codigo: option.value, valor: option.label })
     }
     const [blur, setBlur] = useState(false)
+
+    useEffect(() => {
+        if (value === '') {
+            setValue('')
+        }
+    }, [value])
+
     return (
         <div>
-            <div className='cursor-pointer'>
+            <div className='cursor-pointer text-black'>
                 <div className='relative'>
                     {loading && (
                         <i className='pl-2 m-0 flex absolute w-full h-full justify-center items-center z-10 opacity-100'>

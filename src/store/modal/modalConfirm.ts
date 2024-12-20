@@ -5,10 +5,11 @@ interface OpenProps {
     onConfirm?: () => void
     onCancel?: () => void
     buttonTitle?: string
+    buttonTitleCancel?: string
     onlyButton?: boolean
+    button?: boolean
     title?: string
-    error?: boolean
-    warnIcon?: boolean
+    icon?: 'warning' | 'success' | ''
     onlybutton?: boolean
     closeDisabled?: boolean
     children?: ReactNode
@@ -19,11 +20,12 @@ interface ModalConfirmStore {
     message: string
     onConfirm: () => void
     onCancel: () => void
-    buttonTitle: string
+    buttonTitle?: string
+    buttonTitleCancel?: string
     onlyButton: boolean
-    title: string
+    title?: string
     error: boolean
-    warnIcon: boolean
+    icon?: 'warning' | 'success' | ''
     open: (props: OpenProps) => void
     close: () => void
     onlybutton?: boolean
@@ -38,8 +40,9 @@ export const useModalConfirm = create<ModalConfirmStore>((set) => ({
     onConfirm: () => {},
     onCancel: () => {},
     buttonTitle: 'Aceptar',
-    onlyButton: false,
+    onlyButton: true,
     title: 'Confirmación',
+    buttonTitleCancel: 'Cancelar',
     error: true,
     warnIcon: false,
     onlybutton: false,
@@ -61,7 +64,7 @@ export const useModalConfirm = create<ModalConfirmStore>((set) => ({
             onlyButton: false,
             title: 'Error',
             error: true,
-            warnIcon: false,
+            icon: '',
             onlybutton: false,
             children: undefined,
             closeDisabled: false

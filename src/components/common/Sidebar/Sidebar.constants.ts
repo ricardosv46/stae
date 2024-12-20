@@ -49,13 +49,13 @@ export const menuList: ISidebarMenu[] = [
             {
                 title: 'Usuarios',
                 icon: '/assets/icons/ico_menu_clase.svg',
-                url: '',
+                url: '/gestion/usuarios',
                 params: { typeClass: '3' }
             },
             {
                 title: 'Incidencias',
                 icon: '/assets/icons/ico_menu_clase.svg',
-                url: '',
+                url: '/gestion/incidencias',
                 params: { typeClass: '3' }
             },
             {

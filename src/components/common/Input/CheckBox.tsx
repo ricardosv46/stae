@@ -6,14 +6,14 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
     checked?: boolean
 }
 
-const Radio = ({ label, checked, classInput, ...props }: Props) => {
+export const CheckBox = ({ label, classInput, checked, ...props }: Props) => {
     const uid = useId()
     const { className, ...resprops } = props
 
     return (
         <div className={`inline-flex ${className}`}>
             <input
-                type='radio'
+                type='checkbox'
                 {...resprops}
                 id={`input-${uid}`}
                 key={`kinput-${uid}`}
@@ -27,5 +27,3 @@ const Radio = ({ label, checked, classInput, ...props }: Props) => {
         </div>
     )
 }
-
-export { Radio }
