@@ -2,7 +2,7 @@ import { LayoutPage } from '@components/common'
 import { ActaEntregaUsoIcon } from '@components/icons/ActaEntregaUsoIcon'
 import { ArrowLoadingIcon } from '@components/icons/ArrowLoadingIcon'
 import { ConvenioErepIcon } from '@components/icons/ConvenioErepIcon'
-import { ReportePuestaCeroIcon } from '@components/icons/ReportePuestaCeroIcon'
+import { ReporteCheckIcon } from '@components/icons/ReportePuestaCeroIcon'
 
 const Bitacora = () => {
     return (
@@ -39,8 +39,8 @@ const Bitacora = () => {
                     </div>
 
                     <div className='flex flex-col lg:flex-row justify-center items-center gap-[0px] pb-5'>
-                        <div className='bg-blue w-24 h-24 float-left p-6'>
-                            <ReportePuestaCeroIcon />
+                        <div className='bg-blue w-24 h-24 float-left p-6 text-white'>
+                            <ReporteCheckIcon />
                         </div>
                         <div className='w-[350px] display-inline cursor-pointer'>
                             <p className='text-white text-center font-bold p-9 bg-[#0073cf]'>Reporte de puesta cero</p>

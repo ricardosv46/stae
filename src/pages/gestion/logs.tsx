@@ -1,4 +1,6 @@
 import { LayoutPage, TabPanel, Tabs } from '@components/common'
+import { LogsDownload } from '@modules/gestion/components/LogsDownload'
+import { LogsProcess } from '@modules/gestion/components/LogsProcess'
 import { useState } from 'react'
 
 const Logs = () => {
@@ -10,8 +12,12 @@ const Logs = () => {
     return (
         <LayoutPage operator='OPERADORADM' section='Logs PKI'>
             <Tabs tablist={['PROCESAR', 'DESCARGAR']} selectedIndex={tabControl} onSelect={handleSelectedChange}>
-                <TabPanel>1</TabPanel>
-                <TabPanel>2</TabPanel>
+                <TabPanel>
+                    <LogsProcess />
+                </TabPanel>
+                <TabPanel>
+                    <LogsDownload />
+                </TabPanel>
             </Tabs>
         </LayoutPage>
     )
