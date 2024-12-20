@@ -7,9 +7,7 @@ import { useToggle } from '@components/hooks'
 import { SearchIcon } from '@components/icons'
 import { AddIncidencias } from '@components/icons/AddIncidencias'
 import { ModalNewIncident } from '@modules/gestion/components/ModalNewIncident'
-import { ModalNewUser } from '@modules/gestion/components/ModalNewUser'
 import { columnsIncident, IIncident } from '@modules/gestion/table/columnsIncident'
-import { IUser } from '@modules/gestion/table/columnsUser'
 import { useModalConfirm } from '@store/modal/modalConfirm'
 import { flexRender, getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table'
 import { useEffect, useState } from 'react'
@@ -103,15 +101,14 @@ const Incidencias = () => {
     })
 
     const onSubmit = (values: FormValues) => {
-        // const newData = data.filter((user) => {
-        //     const searchMatch =
-        //         user.email?.toLowerCase().includes(values?.search?.toLocaleLowerCase()) ||
-        //         user.username?.toLowerCase().includes(values?.search?.toLocaleLowerCase()) ||
-        //         user.role?.toLowerCase().includes(values?.search?.toLocaleLowerCase()) ||
-        //         user.status?.toLowerCase().includes(values?.search?.toLocaleLowerCase())
-        //     return searchMatch
-        // })
-        // setFilteredData(newData)
+        const newData = data.filter((user) => {
+            const searchMatch =
+                user.table?.toLowerCase().includes(values?.search?.toLocaleLowerCase()) ||
+                user.incident?.toLowerCase().includes(values?.search?.toLocaleLowerCase()) ||
+                user.status?.toLowerCase().includes(values?.search?.toLocaleLowerCase())
+            return searchMatch
+        })
+        setFilteredData(newData)
     }
     const { search } = watch()
 

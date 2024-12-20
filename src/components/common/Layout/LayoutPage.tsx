@@ -34,7 +34,7 @@ const LayoutPage = ({ children, section, college, color, operator, backPath }: L
         const responseInterceptor = apiService.interceptors.response.use(
             (response) => {
                 if (response?.data?.status === 443) {
-                    openModalConfirm({ error: true, title: 'Error', message: 'Su sesión ha finalizado', onConfirm: logoutAction })
+                    openModalConfirm({ icon: 'warning', title: 'Error', message: 'Su sesión ha finalizado', onConfirm: logoutAction })
                     return Promise.reject({ ...response, hidden: true })
                 } else {
                     return response
@@ -45,7 +45,7 @@ const LayoutPage = ({ children, section, college, color, operator, backPath }: L
                     error.message = 'No se pudo acceder al servicio. Verifique su conexión a internet'
                     return Promise.reject(error)
                 } else if (error?.data?.status === 443) {
-                    openModalConfirm({ error: true, title: 'Error', message: 'Su sesión ha finalizado', onConfirm: logoutAction })
+                    openModalConfirm({ icon: 'warning', title: 'Error', message: 'Su sesión ha finalizado', onConfirm: logoutAction })
 
                     return Promise.reject({ ...error, hidden: true })
                 } else if (error?.response?.status === 403) {

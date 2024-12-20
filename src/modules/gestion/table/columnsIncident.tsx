@@ -1,6 +1,4 @@
 import { EditIcon } from '@components/icons'
-import { ArrowLoadingIcon } from '@components/icons/ArrowLoadingIcon'
-import { DeleteIcon } from '@components/icons/DeleteIcon'
 import { createColumnHelper } from '@tanstack/react-table'
 
 export interface IIncident {

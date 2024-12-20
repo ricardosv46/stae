@@ -61,7 +61,7 @@ export const menuList: ISidebarMenu[] = [
             {
                 title: 'Logs PKI',
                 icon: '/assets/icons/ico_menu_clase.svg',
-                url: '',
+                url: '/gestion/logs',
                 params: { typeClass: '3' }
             }
         ]

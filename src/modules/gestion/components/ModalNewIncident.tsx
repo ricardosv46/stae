@@ -30,10 +30,10 @@ const rightIncidents = [
     { id: 'forgot-password', label: 'Miembro de Mesa olvidó su clave' }
 ]
 const validationSchema = yup.object().shape({
-    table: yup.string().required('El usuario es requerido'),
-    status: yup.string().required('El usuario es requerido'),
-    incident: yup.string().required('El usuario es requerido'),
-    detail: yup.string().required('El usuario es requerido')
+    table: yup.string().required('La mesa es requerida'),
+    status: yup.string().required('El estado es requerido'),
+    incident: yup.string().required('El incidente es requerido'),
+    detail: yup.string().required('El detalle es requerido')
 })
 
 export const ModalNewIncident = ({ isOpen, onClose, onCreate }: IModalNewIncident) => {
@@ -81,6 +81,7 @@ export const ModalNewIncident = ({ isOpen, onClose, onCreate }: IModalNewInciden
                         render={({ field }) => (
                             <Input
                                 {...field}
+                                autoBlur
                                 placeholder='Ingrese Número de mesa'
                                 classInput='w-[350px] h-12'
                                 className='w-[350px]'
@@ -93,33 +94,40 @@ export const ModalNewIncident = ({ isOpen, onClose, onCreate }: IModalNewInciden
                         name='incident'
                         control={control}
                         render={({ field }) => (
-                            <div className='grid grid-cols-2'>
-                                <div className='flex flex-col gap-2'>
-                                    {leftIncidents.map((i, index) => (
-                                        <CheckBox
-                                            {...field}
-                                            key={index}
-                                            onChange={() => field.onChange(i.label)}
-                                            label={i.label}
-                                            value={i.label}
-                                            name='incident'
-                                            checked={field.value === i.label}
-                                        />
-                                    ))}
+                            <div>
+                                <div className='grid grid-cols-2'>
+                                    <div className='flex flex-col gap-2'>
+                                        {leftIncidents.map((i, index) => (
+                                            <CheckBox
+                                                {...field}
+                                                key={index}
+                                                onChange={() => field.onChange(i.label)}
+                                                label={i.label}
+                                                value={i.label}
+                                                name='incident'
+                                                checked={field.value === i.label}
+                                            />
+                                        ))}
+                                    </div>
+                                    <div className='flex flex-col gap-2'>
+                                        {rightIncidents.map((i, index) => (
+                                            <CheckBox
+                                                {...field}
+                                                key={index}
+                                                onChange={() => field.onChange(i.label)}
+                                                label={i.label}
+                                                value={i.label}
+                                                name='incident'
+                                                checked={field.value === i.label}
+                                            />
+                                        ))}
+                                    </div>
                                 </div>
-                                <div className='flex flex-col gap-2'>
-                                    {rightIncidents.map((i, index) => (
-                                        <CheckBox
-                                            {...field}
-                                            key={index}
-                                            onChange={() => field.onChange(i.label)}
-                                            label={i.label}
-                                            value={i.label}
-                                            name='incident'
-                                            checked={field.value === i.label}
-                                        />
-                                    ))}
-                                </div>
+                                {errors?.incident?.message && (
+                                    <div className='relative h-6 mt-1'>
+                                        <p className={` text-gray absolute left-0 top-0 text-nowrap `}>{errors?.incident?.message}</p>
+                                    </div>
+                                )}
                             </div>
                         )}
                     />
@@ -131,10 +139,11 @@ export const ModalNewIncident = ({ isOpen, onClose, onCreate }: IModalNewInciden
                                 <>
                                     <strong>Estado final</strong>
                                     <InputArea
+                                        autoBlur
                                         {...field}
                                         placeholder='Ingrese el detalle de la solución brindada'
                                         classInput='w-full h-12'
-                                        error={errors?.table?.message}
+                                        error={errors?.detail?.message}
                                     />
                                 </>
                             )}
@@ -145,21 +154,28 @@ export const ModalNewIncident = ({ isOpen, onClose, onCreate }: IModalNewInciden
                         name='status'
                         control={control}
                         render={({ field }) => (
-                            <div className='flex gap-3'>
-                                <Radio
-                                    {...field}
-                                    label={'Solucionado'}
-                                    value={'Solucionado'}
-                                    name='status'
-                                    checked={field.value === 'Solucionado'}
-                                />
-                                <Radio
-                                    {...field}
-                                    label={'Pasó a convencional'}
-                                    value={'Pasó a convencional'}
-                                    name='status'
-                                    checked={field.value === 'Pasó a convencional'}
-                                />
+                            <div>
+                                <div className='flex gap-3'>
+                                    <Radio
+                                        {...field}
+                                        label={'Solucionado'}
+                                        value={'Solucionado'}
+                                        name='status'
+                                        checked={field.value === 'Solucionado'}
+                                    />
+                                    <Radio
+                                        {...field}
+                                        label={'Pasó a convencional'}
+                                        value={'Pasó a convencional'}
+                                        name='status'
+                                        checked={field.value === 'Pasó a convencional'}
+                                    />
+                                </div>
+                                {errors?.incident?.message && (
+                                    <div className='relative h-6 mt-1'>
+                                        <p className={` text-gray absolute left-0 top-0 text-nowrap `}>{errors?.status?.message}</p>
+                                    </div>
+                                )}
                             </div>
                         )}
                     />

@@ -11,7 +11,7 @@ interface Props extends InputHTMLAttributes<HTMLTextAreaElement> {
 export const InputArea = ({ icon: Icon, classInput, error = '', autoBlur = false, ...props }: Props) => {
     const uid = useId()
     const [blur, setBlur] = useState(false)
-    const { className, disabled, ...resprops } = props
+    const { className, disabled, onFocus, ...resprops } = props
 
     useEffect(() => {
         if (autoBlur) {
@@ -23,6 +23,8 @@ export const InputArea = ({ icon: Icon, classInput, error = '', autoBlur = false
             setBlur(false)
         }
     }, [])
+
+    console.log({ blur, error })
 
     useEffect(() => {
         const textarea = document.getElementById(`input-${uid}`) as HTMLTextAreaElement
@@ -37,7 +39,8 @@ export const InputArea = ({ icon: Icon, classInput, error = '', autoBlur = false
             <div className={`$ ${className} relative`}>
                 <textarea
                     {...resprops}
-                    onFocus={() => {
+                    onFocus={(e) => {
+                        if (onFocus) onFocus(e)
                         setBlur(true)
                     }}
                     id={`input-${uid}`}

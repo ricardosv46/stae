@@ -77,7 +77,7 @@ const Login = () => {
         const firstError = Object.values(errors)[0]?.message
 
         if (firstError) {
-            openModalError({ error: true, title: 'Error', message: firstError, onConfirm: reloadCaptcha })
+            openModalError({ icon: 'warning', title: 'Error', message: firstError, onConfirm: reloadCaptcha })
         }
     }, [errors])
 
